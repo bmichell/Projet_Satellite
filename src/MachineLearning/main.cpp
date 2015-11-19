@@ -1,7 +1,7 @@
 #include <iostream>
 #include "imageout.h"
 #include "imagetif.h"
-#include "imagetraining.h"
+#include "polygon.h"
 #include "train.h"
 
 using namespace std;
@@ -11,10 +11,10 @@ int main()
     ImageTIF venise;
     venise.OpenImage(("../../data/venise.tif"));
     cout << "Open Venise" << endl;
-    ImageTraining Field, Water, Urban;
-    Field.OpenImage("../../data/extractValues/polygones-Field.txt");
-    Water.OpenImage("../../data/extractValues/polygones-Water.txt");
-    Urban.OpenImage("../../data/extractValues/polygones-Urban.txt");
+    Polygon Field, Water, Urban;
+    Field.OpenImage("../../data/extractValues/Image-Field.txt");
+    Water.OpenImage("../../data/extractValues/Image-Water.txt");
+    Urban.OpenImage("../../data/extractValues/Image-Urban.txt");
     cout << "Open Polygons" << endl;
     Train triClass;
     triClass.addImage(Urban);
@@ -27,6 +27,7 @@ int main()
     cout << "Set TIF" << endl;
     img.setTraining(&triClass);
     cout << "Set Training" << endl;
+    img.saveTIF("../../data/out/Venise.ppm");
     img.save("../../data/out/FirstLSE.ppm");
     return 0;
 }

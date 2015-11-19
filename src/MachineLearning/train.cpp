@@ -3,7 +3,7 @@
 using namespace std;
 using namespace Eigen;
 
-Train::Train() : _train(), _normal(), _dir()
+Train::Train() : _polygons(), _normal(), _dir()
 {
 }
 
@@ -11,45 +11,49 @@ Train Train::operator=(const Train& other)
 {
     this->_dir = other.getDir();
     this->_normal = other.getNormal();
-    this->_train = other.getTrain();
+    this->_polygons = other.getTrain();
     return *this;
 }
 
 bool Train::doTraining()
 {
-    for(unsigned int i = 0; i < _train.size(); i++)
+    unsigned int size = 0;
+    unsigned int iter = 0;
+    for(unsigned int l = 0; l < _polygons.size(); l++)
     {
-        unsigned int size = 0;
-        for(unsigned int l = 0; l < _train.size(); l++)
+        size += _polygons[l].size();
+    }
+    VectorXd I(size);
+    MatrixXd X(size, _polygons[0].getBandCount() + 1);
+
+    for(unsigned int i = 0; i < _polygons.size(); i++)
+    {
+        for(unsigned int m = 0; m < _polygons[i].size(); m++)
         {
-            size += _train[l].getWidth() + _train[l].getHeight();
+        VectorXd pixel = _polygons[i].getVector(m);
+        for(unsigned int j=0; j < pixel.size(); j++)
+        {
+            X(iter,j)=pixel[j];
         }
-        VectorXd I(size);
-        MatrixXd X(size, _train[i].getBand() + 1);
-        int iter =0;
-        for(unsigned int k = 0; k < _train.size(); k++)
+        iter++;
+        }
+         X(iter-1,_polygons[i].getBandCount())=1;
+    }
+
+    for(unsigned int i = 0; i < _polygons.size(); i++)
+    {
+        iter = 0;
+        for(unsigned int k = 0; k < _polygons.size(); k++)
         {
-            for(unsigned int m = 0; m < _train[k].getWidth() + _train[k].getHeight()-2; m++)
+            for(unsigned int m = 0; m < _polygons[k].size(); m++)
             {
             if(k == i )
             {
-                I[k]=1;
-                VectorXd pixel = _train[k].readPixel(m,0);
-                for(unsigned int j=0; j < pixel.size(); j++)
-                {
-                    X(iter,j)=pixel[j];
-                }
-                X(iter,_train[i].getBand())=1;
+                I[iter]=1;
             }
             else
             {
-                I[k]=-1;
-                VectorXd pixel = _train[k].readPixel(m,0);
-                for(unsigned int j=0; j < pixel.size(); j++)
-                {
-                     X(iter,j)=pixel[j];
-                }
-                X(iter,_train[i].getBand())=1;
+                I[iter]=-1;
             }
             iter++;
             }

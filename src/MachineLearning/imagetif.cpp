@@ -14,7 +14,6 @@ ImageTIF ImageTIF::operator=(const ImageTIF& other)
     _ySize = other.getHeight();
     _bandCount = other.getBand();
     _data.resize(_xSize*_ySize*_bandCount);
-#pragma omp parallel for
     for(unsigned y = 0; y< _ySize;y++)
     {
         for(unsigned x = 0; x< _xSize;x++)
@@ -36,7 +35,7 @@ bool ImageTIF::OpenImage(std::string filename)
     poDataset     = (GDALDataset *) GDALOpen( filename.c_str(), GA_ReadOnly );
     _ySize     = poDataset->GetRasterYSize();
     _xSize     = poDataset->GetRasterXSize();
-    _bandCount = poDataset->GetRasterCount();
+    _bandCount = 13;
     _data.resize(_ySize*_xSize*_bandCount);
     GDALRasterBand *bands;
     if( poDataset != NULL )

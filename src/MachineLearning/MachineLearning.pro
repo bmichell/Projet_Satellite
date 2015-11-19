@@ -2,20 +2,18 @@ TEMPLATE = app
 CONFIG += console
 CONFIG -= app_bundle
 CONFIG -= qt
-LIBS += -L/usr/include/gdal -lgdal
-QMAKE_CXXFLAGS += -fopenmp
-LIBS += -fopenmp
+INCLUDEPATH += "../MachineLearning/gdal/include"
+LIBS += -L../MachineLearning/gdal/lib -lgdal
 
 SOURCES += main.cpp \
     imagetif.cpp \
-    imagetraining.cpp \
+    polygon.cpp \
     imageout.cpp \
     train.cpp
 
 HEADERS += \
     imagetif.h \
-    image.h \
-    imagetraining.h \
+    polygon.h \
     imageout.h \
     train.h
 

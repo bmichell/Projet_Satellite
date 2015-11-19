@@ -116,9 +116,13 @@ int ImageOut::getClassif(unsigned int x, unsigned int y)
         }
         return 2;
     }
-    else
+    else if(is3)
     {
         return 3;
+    }
+    else
+    {
+        return -1;
     }
 
     throw string("Pas de classification.");
