@@ -43,7 +43,7 @@ for a in xrange(len(args.files)):
     nx = labels.shape[1]
 
     out = open(args.output + "-" + path.splitext(path.basename(args.files[a]))[0] + ".txt" ,'w')
-    out.write('                                                                                                                                                                                                                               \n')
+    out.write('                                                                                       \n')                                                                                                                                                                                                               
     i = []
     for b in range(0,nbands):
         i += [0]
@@ -54,7 +54,7 @@ for a in xrange(len(args.files)):
             isValue = False
             for x in range(nx):
                 # pour les pixels avec une classe definie
-                if labels[y,x]!=0:
+                if labels[y,x]==a+1:
                    # valeur de la bande pour ce pixel
                    out.write(str(band_data[y,x]) + " ")
                    i[b]+=1
@@ -62,5 +62,5 @@ for a in xrange(len(args.files)):
             if isValue :
                 out.write('\n ')
     out.seek(0,0)
-    out.write("b1 : " + str(i[0]) + "\tb2 :" + str(i[1])  + "\tb3 :" +str(i[2]) + "\tb4 :"+str(i[3]) + "\tb5 :"+str(i[4]) + "\tb6 :"+str(i[5]) + "\tb7 :"+str(i[6]) + "\tb8 :"+str(i[7]) + "\tb9 :"+str(i[8]) + "\tb10 :"+str(i[9]) + "\tb11 :"+str(i[10]) + "\tb12 :"+str(i[11]) + "\tb13 :"+str(i[12]) + "\tb14 :"+str(i[13]) + "\tb15 :"+str(i[14]) + "\tb16 :" + str(i[15]) +  "\tb17 :" + str(i[16]) )
-    out.seek(-1,2)
+    out.write(str(i[0]) + '\n' + str(nbands)+'\n')
+    out.seek(0,2)
