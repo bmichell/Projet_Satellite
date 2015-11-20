@@ -1,7 +1,8 @@
 #ifndef Polygon_H
 #define Polygon_H
-#include "image.h"
 #include <fstream>
+#include <vector>
+#include <Eigen/Eigen>
 
 class Polygon
 {

@@ -9,11 +9,14 @@ SOURCES += main.cpp \
     imagetif.cpp \
     polygon.cpp \
     imageout.cpp \
-    train.cpp
+    lsetraining.cpp \
+    ldatraining.cpp
 
 HEADERS += \
     imagetif.h \
     polygon.h \
     imageout.h \
-    train.h
+    lsetraining.h \
+    training.h \
+    ldatraining.h
 

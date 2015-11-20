@@ -2,7 +2,8 @@
 #include "imageout.h"
 #include "imagetif.h"
 #include "polygon.h"
-#include "train.h"
+#include "lsetraining.h"
+#include "ldatraining.h"
 
 using namespace std;
 
@@ -16,7 +17,7 @@ int main()
     Water.OpenImage("../../data/extractValues/Image-Water.txt");
     Urban.OpenImage("../../data/extractValues/Image-Urban.txt");
     cout << "Open Polygons" << endl;
-    Train triClass;
+    LDATraining triClass;
     triClass.addImage(Urban);
     triClass.addImage(Field);
     triClass.addImage(Water);
@@ -26,9 +27,8 @@ int main()
     img.setTIF(&venise);
     cout << "Set TIF" << endl;
     img.setTraining(&triClass);
-    cout << "Set Training" << endl;
-    img.saveTIF("../../data/out/Venise.ppm");
-    img.save("../../data/out/FirstLSE.ppm");
+    img.save("../../data/out/FirstLDA.ppm");
+    cout << triClass.confusionMatrix() << endl;
     return 0;
 }
 
