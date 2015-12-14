@@ -1,0 +1,22 @@
+\label{ClassLin}
+\begin{center}
+ \begin{tikzpicture}
+ \begin{scope}
+ \draw[latex-latex, thin, draw=gray] (-4,0)--(4,0) node [right] {$x$}; % l'axe des abscisses
+ \draw[latex-latex, thin, draw=gray] (0,-4)--(0,4) node [above] {$y$}; % l'axe des ordonnées
+ \draw[thick] (-4,-4)--(4,4); % la courbe
+
+\foreach \Point in {(-2,2), (-2,1.8), (-2,2.2), (-1.5,2), (-1.8,2.2),(-1.5,2.2),(-1.8,2),(-2.2,2),(-2,1.5),(-1.8,1.8)}{
+    \node [blue] at \Point {\textbullet};
+}
+
+\foreach \Point in {(2,-2), (2,-1.8), (2,-2.2), (1.5,-2), (1.8,-2.2),(1.5,-2.2),(1.8,-2),(2.2,-2),(2,-1.5),(1.8,-1.8)}{
+    \node [red] at \Point {\textbullet};
+}
+
+% to ensure that the points are being properly centered:
+\draw [dotted, gray] (-4,-4) grid (4,4);
+ \end{scope}
+\end{tikzpicture}
+\captionof{figure}{Illustration du principe de la classification linéaire.}
+\end{center}

@@ -1,0 +1,22 @@
+\begin{figure*}
+\caption{Matrice de confusion pour un exemple à trois classes.}
+\label{ConfMat}
+\begin{center}
+\renewcommand{\arraystretch}{3}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+ \multicolumn{2}{|c|}{\multirow{2}{*}{}} & \multicolumn{3}{|c}{Classes Prédites} &  \\
+ \cline{3-6}
+  \multicolumn{2}{|c|}{} & Classe 1 & Classe 2 & Classe 3 & Précision\\
+  \hline
+ \multirow{3}{*}{\begin{turn}{90} Classes Théoriques\end{turn}} & Classe 1 & $N_{11}$ & $N_{12}$ & $N_{13}$ & $\frac{N_{11}}{N_{11} + N_{12} + N_{13} }$\\
+ \cline{2-6}
+  & Classe 2 & $N_{21}$ & $N_{22}$ & $N_{23}$ & $\frac{N_{22}}{N_{21} + N_{22} + N_{23} }$\\
+  \cline{2-6}
+  & Classe 3 & $N_{31}$ & $N_{32}$ & $N_{33}$ & $\frac{N_{33}}{N_{31} + N_{32} + N_{33} }$\\
+  \cline{2-6}
+  & Recall  & $\frac{N_{11}}{N_{11} + N_{21} + N_{31} }$ & $\frac{N_{22}}{N_{12} + N_{22} + N_{32} }$ & $\frac{N_{33}}{N_{13} + N_{23} + N_{33} }$ & $\frac{N_{11} + N_{22} + N_{33}}{Nb echantillons}$\footnote {ce résultat donne la fidélité de la classification par rapport à l'image initiale} \\
+\hline
+\end{tabular}
+\end{center}
+\end{figure*}

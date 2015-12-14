@@ -1,19 +1,9 @@
-\documentclass[a4paper,10pt]{article}
-\usepackage[utf8x]{inputenc}
-\usepackage{url}
-
 %opening
-\title{Etat de lard}
-\author{Aurélien Barbotin Pierre David Benjamin Michelland Youna le Vaou}
-
-\begin{document}
-
-\maketitle
 
 \section{État de l'art}
 \subsection{Imagerie satellite hyperspectrale}
 
-Jusqu'à récemment, la principale source d'images satellite hyperspectrales exploitées par les scientifiques étaient les satellites MODIS (Moderate-Resolution Imaging SpectroRadiometer). Ces deux satellites, lancés par la NASA en 1999 et 2002, imagent l'intégralité de la surface de la terre tous les deux jours. Ces satellites sont capables de mesurer 36 bandes fréquentielles avec trois résolutions différentes : 250m, 500m et 1000m\cite{nasa}. L'objectif de cette mission est de ``jouer un rôle vital dans le développement de modèles globaux, validés et interactifs de systèmes terrestres capables de prévoir des changements globaux avec suffisamment de précision pour aider les décideurs politiques à prendre des décisions avisées concernant la protection de notre environnement.''
+Jusqu'à récemment, la principale source d'images satellite hyperspectrales exploitées par les scientifiques étaient les satellites MODIS (Moderate-Resolution Imaging SpectroRadiometer). Ces deux satellites, lancés par la NASA en 1999 et 2002, imagent l'intégralité de la surface de la terre tous les deux jours. Ces satellites sont capables de mesurer 36 bandes fréquentielles avec trois résolutions différentes : 250m, 500m et 1000m\cite{nasa}. L'objectif de cette mission est de "jouer un rôle vital dans le développement de modèles globaux, validés et interactifs de systèmes terrestres capables de prévoir des changements globaux avec suffisamment de précision pour aider les décideurs politiques à prendre des décisions avisées concernant la protection de notre environnement."
 
 Ces données ont ainsi pu servir à analyser la qualité de l'air au niveau du sol et, entre autres, d'en déduire la présence d'évènements exceptionnels comme des feux de forêt ou du brouillard\cite{airSurv}. A l'aide d'indices comme le NDVI (normalized difference vegetation index) calculés à partir de données hyperspectrales, il est possible d'établir la présence ou l'absence de végétation dans une zone. En effet, les plantes chlorophyliennes absorbent fortement la lumière rouge et réfléchissent la lumière proche infrarouge : la différence normalisée d'intensité entre ces deux bandes correspond à l'indice NDVI dont une valeur proche de 1 indique la présence de végétation, et une valeur proche de 0 son absence. De multiples applications, comme l'étude de la désertification de zones dues à l'activité humaine\cite{desert} ont dores et déjà été mises en évidence.
 
@@ -22,8 +12,3 @@ La faible résolution des données MODIS ne permet en revanche pas de discerner 
 Dans le cadre du projet \textit{Copernicus} d'observation de la Terre, l'agence spatiale européenne (ESA) développe en ce moment les missions Sentinel. Chacune de ces missions consiste en une paire de satellite en orbite autour de notre planète, récoltant des données sur la surface et l'atmosphère. Ainsi, les satellites Sentinel 2 (Sentinel 2-A lancé le 23 juin 2015 et 2-B dont le lancement est prévu pour la seconde moitié de 2016)\cite{sent2} récoltent des données hyperspectrales sur 13 bandes de fréquence : 4 bandes avec une résolution de 10m et 9 avec une résolution de 60m.
 
 Les données Sentinel 2 étant très récentes, nous faisons partie des premiers à les analyser et aucun article à leur sujet n'a encore été publié à notre connaissance. Leur analyse et leur classification relève donc de la recherche.
-
-
-\bibliography{Biblio}
-\bibliographystyle{plain}
-\end{document}
