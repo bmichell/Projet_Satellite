@@ -10,7 +10,8 @@ SOURCES += main.cpp \
     polygon.cpp \
     imageout.cpp \
     lsetraining.cpp \
-    ldatraining.cpp
+    ldatraining.cpp \
+    class.cpp
 
 HEADERS += \
     imagetif.h \
@@ -18,5 +19,6 @@ HEADERS += \
     imageout.h \
     lsetraining.h \
     training.h \
-    ldatraining.h
+    ldatraining.h \
+    class.h
 
