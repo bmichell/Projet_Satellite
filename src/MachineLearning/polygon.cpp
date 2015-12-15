@@ -1,4 +1,5 @@
 #include "polygon.h"
+#include "var.h"
 using namespace Eigen;
 using namespace std;
 
@@ -45,17 +46,29 @@ bool Polygon::OpenImage(std::string filename)
         double token;
         image >> _size;
         image >> _bandCount;
-        VectorXd zero(VectorXd::Zero(_bandCount));
+        _bandCount--;
+        VectorXd zero2(VectorXd::Zero(_bandCount));
         _data.resize(_size);
         for(unsigned int i = 0; i < _size; i++)
         {
-            _data[i] = zero;
+            _data[i] = zero2;
         }
         for(unsigned int b = 0; b < _bandCount; b++)
         {
             for(unsigned int i = 0; i < _size; i++)
             {
+                if(b<10)
+                {
                     image >> _data[i][b];
+                }
+                else if(b>10)
+                {
+                    image >> _data[i][b-1];
+                }
+                else
+                {
+                    image >> token;
+                }
             }
         }
         image.close();

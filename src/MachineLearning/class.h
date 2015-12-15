@@ -1,6 +1,6 @@
 #ifndef CLASS_H
 #define CLASS_H
-#include <eigen3/Eigen/Eigen>
+#include <Eigen/Eigen>
 #include <vector>
 
 class Class

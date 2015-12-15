@@ -11,7 +11,7 @@
 #define Polygon_H
 #include <fstream>
 #include <vector>
-#include <eigen3/Eigen/Eigen>
+#include <Eigen/Eigen>
 #include "class.h"
 
 class Polygon
