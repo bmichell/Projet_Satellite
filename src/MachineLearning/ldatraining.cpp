@@ -4,55 +4,67 @@
 using namespace Eigen;
 using namespace std;
 
-LDATraining::LDATraining()
+LDATraining::LDATraining() : _normal(), _moy(), _isTrain(false)
 {
+}
+
+LDATraining LDATraining::operator=(const LDATraining& other)
+{
+    this->_normal = other.getNormal();
+    this->_moy = other.getMoy();
+    this->_polygons = other.getPolygons();
+    this->_isTrain = bool(other.getNormal().size());
+    return *this;
 }
 
 bool LDATraining::doTraining()
 {
-    VectorXd inv_ETypeMoy(_polygons[0].getBandCount());
-    VectorXd EType(_polygons[0].getBandCount());
-
+    VectorXd zero(VectorXd::Zero(_polygons[0].getBandCount()));
+    VectorXd inv_ETypeMoy = zero;
+    VectorXd EType = zero;
+    _moy.resize(_polygons.size());
+    _normal.resize(_polygons.size());
     for(unsigned int i = 0; i < _polygons.size(); i++)
-    {
-        VectorXd tmp(_polygons[i].getBandCount());
-        for(unsigned int j = 0; j < _polygons[i].size(); j++)
         {
-            tmp += _polygons[i].getVector(j);
+            VectorXd tmp(_polygons[i].getBandCount());
+            for(unsigned int j = 0; j < _polygons[i].size(); j++)
+            {
+                tmp += _polygons[i].getVector(j);
+            }
+            _moy[i] = tmp/_polygons[i].size();
         }
-        _moy.push_back(tmp/_polygons[i].size());
-    }
 
-    for(unsigned int i = 0; i < _polygons.size(); i++)
-    {
-        VectorXd tmp(_polygons[i].getBandCount());
-        for(unsigned int j = 0; j < _polygons[i].size(); j++)
+        for(unsigned int i = 0; i < _polygons.size(); i++)
         {
-            VectorXd diff = _polygons[i].getVector(j) - _moy[i];
-            tmp += diff.cwiseProduct(diff);
+            VectorXd tmp(_polygons[i].getBandCount());
+            tmp=zero;
+            for(unsigned int j = 0; j < _polygons[i].size(); j++)
+            {
+                VectorXd diff = _polygons[i].getVector(j) - _moy[i];
+                tmp += diff.cwiseProduct(diff);
+            }
+            for(unsigned k = 0; k < tmp.size(); k++)
+            {
+                EType[k] += sqrt(tmp[k]/_polygons[i].size())/_polygons.size();
+            }
         }
-        for(unsigned k = 0; k < tmp.size(); k++)
-        {
-            EType[k] += sqrt(tmp[k]/_polygons[i].size())/_polygons.size();
-        }
-    }
 
-    for(unsigned k = 0; k < EType.size(); k++)
-    {
-        inv_ETypeMoy[k] = 1.0/EType[k];
-    }
-    int iter=0;
-    for(unsigned int i = 0; i < _polygons.size()-1; i++)
-    {
-        for(unsigned int j = i+1; j < _polygons.size(); j++)
+        for(unsigned k = 0; k < EType.size(); k++)
         {
-            _normal.push_back(inv_ETypeMoy.cwiseProduct(_moy[i]-_moy[j]));
-            _normal[iter]/=sqrt(_normal[iter].cwiseProduct(_normal[iter]).sum());
-            iter++;
+            inv_ETypeMoy[k] = 1.0/EType[k];
         }
-    }
-    _isTrain = true;
-    return true;
+        int iter=0;
+        for(unsigned int i = 0; i < _polygons.size()-1; i++)
+        {
+            for(unsigned int j = i+1; j < _polygons.size(); j++)
+            {
+                _normal[iter] = inv_ETypeMoy.cwiseProduct(_moy[i]-_moy[j]);
+                _normal[iter]/=sqrt(_normal[iter].cwiseProduct(_normal[iter]).sum());
+                iter++;
+            }
+        }
+        _isTrain = true;
+        return true;
 }
 
 Eigen::Vector3i LDATraining::getClassif(Eigen::VectorXd vec) const
@@ -66,76 +78,37 @@ Eigen::Vector3i LDATraining::getClassif(Eigen::VectorXd vec) const
         throw string("Veuillez réaliser l'entrainement !!!");
     }
 
-    vector<double> dist(getNumberOfClass());
-    vector<double> c(getNumberOfClass());
+    vector<bool> isInotJ(getNumberOfClass()*getNumberOfClass());
     int iter = 0;
     for(unsigned int i = 0; i < _polygons.size()-1; i++)
     {
         for(unsigned int j = i+1; j < _polygons.size(); j++)
         {
-        VectorXd n = getNormal(iter);
-        dist[iter]=vec.cwiseProduct(n).sum();
-        c[iter]=(_moy[i].cwiseProduct(n).sum()+_moy[j].cwiseProduct(n).sum())*0.299;
-        iter++;
+            VectorXd n = getNormal(iter);
+            double dist=vec.cwiseProduct(n).sum();
+            double c=(_moy[i].cwiseProduct(n).sum()+_moy[j].cwiseProduct(n).sum())*0.299;
+            isInotJ[iter] = (dist > c);
+            iter++;
         }
     }
-    bool is1not2 = (dist[0] > c[0]);
-    bool is1not3 = (dist[1] > c[1]);
-    bool is2not3 = (dist[2] > c[2]);
-
-    if(is1not2)
+    vector<float> choice(getNumberOfClass());
+    iter = 0;
+    for(unsigned int i = 0; i < _polygons.size()-1; i++)
     {
-        if(is1not3 || is2not3)
+        for(unsigned int j = i+1; j < _polygons.size(); j++)
         {
-            return Vector3i(255,0,0);
-        }
-        else if(!is2not3)
-        {
-            return Vector3i(0,0,255);
-        }
-        else
-        {
-            return Vector3i(0,0,0);
+            if(isInotJ[iter])
+            {
+                choice[i]++;
+            }
+            else
+            {
+                choice[j]++;
+            }
+            iter++;
         }
     }
-    else if(is2not3)
-    {
-        return Vector3i(0,255,0);
-    }
-    else
-    {
-        return Vector3i(0,0,0);
-    }
+    int tmp = max_element(choice.begin(), choice.end()) - choice.begin();
+    return _polygons[tmp].getColor();
 }
 
-Eigen::Matrix4f LDATraining::confusionMatrix() const
-{
-    Matrix4f confusion;
-    confusion << 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;
-    int size = 0;
-    for(unsigned int i = 0; i < _polygons.size();i++)
-    {
-        for(unsigned j =0; j < _polygons[i].size() ; j++)
-        {
-            if(getClassif(_polygons[i].getVector(i))[0] == 255)
-            {
-                confusion(i,0)++;
-            }
-            else if(getClassif(_polygons[i].getVector(i))[1] == 255)
-            {
-                confusion(i,1)++;
-            }
-            else if(getClassif(_polygons[i].getVector(i))[2] == 255)
-            {
-                confusion(i,2)++;
-            }
-        }
-        size += _polygons[i].size();
-        confusion(i,3) = confusion(i,i)/_polygons[i].size();
-    }
-    confusion(3,0) = confusion(0,0)/(confusion(0,0)+confusion(1,0)+confusion(2,0));
-    confusion(3,1) = confusion(1,1)/(confusion(1,1)+confusion(1,0)+confusion(1,2));
-    confusion(3,2) = confusion(2,2)/(confusion(2,2)+confusion(1,2)+confusion(0,2));
-    confusion(3,3) = (confusion(0,0)+confusion(1,1)+confusion(2,2))/size;
-    return confusion;
-}
