@@ -11,7 +11,8 @@ SOURCES += main.cpp \
     imageout.cpp \
     lsetraining.cpp \
     ldatraining.cpp \
-    class.cpp
+    class.cpp \
+    svmtraining.cpp
 
 HEADERS += \
     imagetif.h \
@@ -20,5 +21,6 @@ HEADERS += \
     lsetraining.h \
     training.h \
     ldatraining.h \
-    class.h
+    class.h \
+    svmtraining.h
 
