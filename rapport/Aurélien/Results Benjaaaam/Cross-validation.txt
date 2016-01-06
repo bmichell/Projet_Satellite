@@ -1,0 +1,70 @@
+﻿Urban vs all
+gamma: 0.01 C: 0.1
+cross validation accuracy: 0.830484 0.983009 
+gamma: 0.01 C: 1
+cross validation accuracy: 0.903548 0.99508 
+gamma: 0.01 C: 10
+cross validation accuracy: 0.968387 0.995195 
+gamma: 0.01 C: 100
+cross validation accuracy: 0.984194 0.997254 
+gamma: 0.01 C: 1000
+cross validation accuracy: 0.988387 0.997998 
+gamma: 0.1 C: 0.1
+cross validation accuracy: 0.929194 0.993707 
+gamma: 0.1 C: 1
+cross validation accuracy: 0.979194 0.99611 
+gamma: 0.1 C: 10
+cross validation accuracy: 0.990806 0.997826 
+gamma: 0.1 C: 100
+cross validation accuracy: 0.994355 0.998799 
+gamma: 0.1 C: 1000
+cross validation accuracy: 0.997258 0.999085 
+gamma: 1 C: 0.1
+cross validation accuracy: 0.982742 0.993478 
+gamma: 1 C: 1
+cross validation accuracy: 0.993871 0.998055 
+gamma: 1 C: 10
+cross validation accuracy: 0.997419 0.999256 
+gamma: 1 C: 100
+cross validation accuracy: 0.997419 0.999256 
+gamma: 1 C: 1000
+cross validation accuracy: 0.997419 0.999256 
+gamma: 10 C: 0.1
+cross validation accuracy: 0.997742 0.906922 
+
+
+Field vs all
+gamma: 0.01 C: 0.1
+cross validation accuracy: 0.939838 0.918088 
+gamma: 0.01 C: 1
+cross validation accuracy: 0.992536 0.952988 
+gamma: 0.01 C: 10
+cross validation accuracy: 0.992626 0.984542 
+gamma: 0.01 C: 100
+cross validation accuracy: 0.995594 0.99243 
+gamma: 0.01 C: 1000
+cross validation accuracy: 0.996763 0.994821 
+gamma: 0.1 C: 0.1
+cross validation accuracy: 0.990018 0.966375 
+gamma: 0.1 C: 1
+cross validation accuracy: 0.993795 0.99004 
+gamma: 0.1 C: 10
+cross validation accuracy: 0.996583 0.995538 
+gamma: 0.1 C: 100
+cross validation accuracy: 0.998112 0.997211 
+gamma: 0.1 C: 1000
+cross validation accuracy: 0.998561 0.998566 
+gamma: 1 C: 0.1
+cross validation accuracy: 0.989478 0.991873 
+gamma: 1 C: 1
+cross validation accuracy: 0.996763 0.996972 
+gamma: 1 C: 10
+cross validation accuracy: 0.998831 0.998645 
+gamma: 1 C: 100
+cross validation accuracy: 0.998831 0.998566 
+gamma: 1 C: 1000
+cross validation accuracy: 0.998831 0.998566 
+gamma: 10 C: 0.1
+cross validation accuracy: 0.810881 0.999044 
+
+

@@ -1,0 +1,11 @@
+Matrice de confusion pour une recherche plus proche voisins (kNN) avec k = 1 (librairie ANN)
+
+	field	urban	water
+field   12822	123	0	99.0498
+urban   740	12360	0	94.3511
+water   0	6	113149	99.9947
+	99.0498	94.3511	99.9947
+accuracy : 99.3757
+% error : 0.624282
+
+
