@@ -6,50 +6,60 @@
 \input{environnements.tex}
 \setlength{\parindent}{0.5cm}
 \begin{document}
-\begin{multicols}{2}
-\title{Etat de lard}
+
+\title{Projet Imagerie Multispectrale}
 \author{Aurélien Barbotin Pierre David Benjamin Michelland Youna le Vaou}
 
 \maketitle
-\chapter{État de l'art}
+
+\chapter{Présentation du projet}
 \input{EtatDeLart}
 \section{Machine Learning}
 \textit{L'apprentissage automatique (machine learning en anglais), champ d'étude de l'intelligence artificielle, concerne la conception, l'analyse, le développement et l'implémentation de méthodes permettant à une machine (au sens large) d'évoluer par un processus systématique, et ainsi de remplir des tâches difficiles ou impossibles à remplir par des moyens algorithmiques plus classiques.\footnote{\href{https://fr.wikipedia.org/wiki/Apprentissage_automatique}{Apprentissage automatique}}}
+\paragraph{}
+Le machine learning se sépare en trois type d'apprentissage :
+\begin{itemize}
+  \item[>] L'apprentissage non-supervisés, qui consiste à donner à notre algorithme uniquement les données à classifier et à le laisser établir les différentes classes à partir des ensembles qui se séparent le mieux.
+  \item[>] Les régressions qui cherchent à définir les données à l'aide d'une loi mathématique.
+  \item[>] Les apprentissages supervisés, pour lesquels il faut définir en plus des données à traiter, des ensembles de vecteurs représentatifs de chacune des classes et déjà classé. Les vecteurs classés manuellement vont servir d’entraînement pour l'apprentissage et donc pour trouver les frontières qui séparent le mieux nos différentes classes.
+\end{itemize}
 \subsection{Les principes}
 \paragraph{}
-Il existe plusieurs familles d'algorithmes qui peuvent être utilisés pour l'apprentissage supervisé, on différenciera dans un premier temps les algorithmes linéaires et non-linéaires. Dans la famille des algorithmes non-linéaire, on trouve des algorithmes intrinsèquement multi-classes (tel que l'algorithme dit des k-plus proches voisins que nous détaillerons plus tard), et les algorithmes binaires.
-\input{diagrammeML}
+Dans Le cas de la surveillance d'occupation des sols, on utilise souvent des méthodes supervisées, car il est relativement aisé de reconnaître à l'œil les différents types de zones au sol (eau, champs, villes, ...). Là encore, il existe plusieurs familles d'algorithmes d'apprentissage supervisé, on différenciera dans un premier temps les algorithmes linéaires et non-linéaires. Dans la famille des algorithmes non-linéaire, on trouve des algorithmes intrinsèquement multi-classes (tel que l'algorithme dit des k-plus proches voisins que nous détaillerons plus tard), et les algorithmes binaires.
+\input{diagrammeML}%pas sûr que le diagramme soit utile finalement...
 \paragraph{}
-Les algorithmes intrinsèquement multi-classes se suffisent à eux même, dans le sens où il suffit d'appliquer l'algorithme à l'ensemble des échantillons d'entraînement pour obtenir une classification complète.
+Pour les algorithmes intrinsèquement multi-classes, il suffit de stocker les vecteurs d’entraînement et d'appliquer directement la classification à l'ensemble des données, il n'y a donc pas d’entraînement à proprement parler.
 \paragraph{}
-Les algorithmes binaires, quand à eux demandent un peu plus de travail, dès que l'on veut traiter plus de deux classe, il faut faire plusieurs entraînements, en se ramenant chaque fois à un problème binaire. La encore, il y deux approches possibles en fonction des algorithmes :
+Les algorithmes binaires, quant à eux demandent un peu plus de travail, dès que l'on veut traiter plus de deux classes, il faut faire plusieurs entraînements, en se ramenant chaque fois à un problème binaire. Là encore, il y a deux approches possibles en fonction des algorithmes :
  \begin{itemize}
-   \item[>] La première approche est appelé un contre tous, elle consiste comme son nom l'indique, à prendre chaque classe et à l'opposer à l'ensemble des autres classes. On obtient alors n problèmes binaires et pour un élément à classifier, en cas d'ambiguïté, la classe qui obtient le plus de "votes" favorables est choisie;
-   \item[>] La seconde méthode est celle du un contre un, toutes les classes sont "opposées" successivement, deux à deux, et de la même façon c'est la classe qui obtient le plus de "votes" favorables qui est choisie. La principale différence réside dans le fait qu'il y a dans ce cas ${n \choose 2}=\frac{n(n-1)}{2}$ entraînements à réaliser.
+   \item[>] La première approche s'appelle "un contre tous", elle consiste comme son nom l'indique, à prendre chaque classe et à l'opposer à l'ensemble des autres classes. On obtient alors n problèmes binaires et pour un élément à classifier, en cas d'ambiguïté, la classe qui obtient le plus de "votes" favorables est choisie;
+   \item[>] La seconde méthode est le "un contre un", toutes les classes sont "opposées" successivement, deux à deux, et de la même façon c'est la classe qui obtient le plus de "votes" favorables qui est choisie. La principale différence réside dans le fait qu'il y ait dans ce cas ${n \choose 2}=\frac{n(n-1)}{2}$ entraînements à réaliser.
  \end{itemize}
  \subsection{Les algorithmes}
 \paragraph{Les classifications linéaires\\}
 Réaliser une classification linéaire d'un ensemble de données en différentes classes revient, en deux dimensions, à trouver la droite qui sépare au mieux deux ensembles de vecteurs.
-\input{classifLineaire}
+\input{classifLineaire}%ici je pense que le graphe que Pierre avait fait pour la soutenance irait mieux.
 il existe plusieurs méthodes pour trouver une droite qui sépare correctement les deux ensembles de points :
 \begin{itemize}
-  \item[>] La première méthode consiste à faire l'hypothèse que tous les points des deux ensembles sont alignés, et qu'on peut alors trouver une droite telle que tous les points soient à une distance de 1, pour l'une des deux classes, et de -1 pour l'autre. On se ramène alors à une optimisation linéaire qui peut-être résolue par la méthode des moindres carrés.
-  \item[>] Une seconde méthode consiste à utiliser l'analyse discriminante linéaire\footnote{ou analyse discriminante de Fisher}(LDA), c'est-à-dire poser l'hypothèse que chaque ensemble de points à une distribution gaussienne, et à trouver, à partir de la variance et de la moyenne de ces distributions la meilleure séparation entre les ensembles. Cependant, cette hypothèse nous pousse à considérer uniquement un apprentissage de type un contre un et donc à faire plus d'entraînement.
+  \item[>] La première méthode consiste à faire l'hypothèse que tous les points des deux ensembles sont alignés, et qu'on peut alors trouver une droite telle que tous les points soient à une distance de 1, pour l'une des deux classes, et de -1 pour l'autre. On se ramène alors à une optimisation linéaire qui peut être résolue par la méthode des moindres carrés.
+  \item[>] Une seconde méthode consiste à utiliser l'analyse discriminante linéaire\footnote{ou analyse discriminante de Fisher}(LDA), c'est-à-dire poser l'hypothèse que chaque ensemble de points à une distribution gaussienne, et à trouver, à partir de la variance et de la moyenne de ces distributions la meilleure séparation entre les ensembles. On peut voir cette méthode comme une recherche de droite sur laquelle la projection des gaussiennes est la mieux séparé, la meilleure séparation est alors l'hyperplan perpendiculaire à cette droite. Cependant, dans la pratique, l'hypothèse de distribution gaussienne est très forte et rarement vérifiée.
 \end{itemize}
+%ici on peut introduire le(s) schéma(s) de la soutenance 
 \paragraph{Les classification non-linéaires}
 \subparagraph{Machine à Vecteurs de Support (SVM) :}
 
-Les SVM ont été développées dans les années 1990 d'après les travaux de Vladimir Vapnik, elle généralise les classificateurs linéaires en cherchant une séparation linéaire de marge maximum, mais en augmentant la dimension de l'espace d'étude. Par l'astuce du \textit{kernel trick}\cite{aizermanSVM}, qui consiste à remplacer le produit scalaire de l'espace considéré par l'évaluation d'une fonction, on peut ramener l'étude d'un problème non séparable linéairement, à un problème linéaire. Une classification basée sur les SVM admet donc des méta-paramètres, qui devront être fixés par l'utilisateur avant de réaliser l'entraînement. Pour optimiser au mieux ses paramètres, on utilise une méthode d'évaluation dite validation croisée qui est expliqué plus en détails par la suite\footnote{voir le paragraphe : L'évaluation}
+Les SVM ont été développées dans les années 1990 d'après les travaux de Vladimir Vapnik, elle généralise les classificateurs linéaires en cherchant une séparation linéaire de marge maximum. Pour cela, l'idée est dans un premier temps de chercher les vecteurs des différentes classes qui définissent le mieux l'enveloppe de chaque classe, et de trouver l'hyperplan qui maximise l'écart à ces vecteurs de support.
+Pour augmenter la précision de la classification, il est intéressant de trouver une frontière non-linéaire, pour ce faire, on utilise l'astuce du noyau (ou kernel trick). Le \textit{kernel trick}\cite{aizermanSVM} consiste à remplacer le produit scalaire de l'espace considéré par l'évaluation d'une fonction (appelée noyau), on peut ramener l'étude d'un problème non séparable linéairement, à un problème linéaire. La classification admet alors des méta-paramètres, qui devront être fixés par l'utilisateur avant de réaliser l'entraînement. Pour optimiser au mieux ses paramètres, on utilise une méthode d'évaluation dite validation croisée qui est expliquée plus en détails par la suite\footnote{voir le paragraphe : L'évaluation}
 \subparagraph{Les K plus proches voisins :}
 \subsection{L'évaluation}
 \paragraph{La matrice de confusion\newline}
-La matrice de confusion est le principal outil de mesure de la qualité d'une classification. Pour la construire, il faut, dans un premier temps fournir un ensemble de données, dont on connaît déjà la classe, et dont on va classifier les éléments. La matrice de confusion va alors servir à synthétiser toutes les informations que l'on peut en tirer.\ref{ConfMat}
+La matrice de confusion est le principal outil de mesure de la qualité d'une classification. Pour la construire, il faut, dans un premier temps fournir un ensemble de données, dont on connaît déjà la classe, et dont on va classifier les éléments à l'aide de notre algorithme. La matrice de confusion va alors servir à synthétiser toutes les informations que l'on peut en tirer en comparant pour chaque vecteur la classe théorique (celle que l'on connaissait au préalable) et le résultat de la classification.\ref{ConfMat}
 \input{MatriceConfusion}
-\newpage
 \paragraph{La validation croisée\newline}
 Il s'agit d'une technique d'évaluation de la classification qui va nous permettre de maximiser la taille des polygones d'entraînement et de test. En effet, cette technique consiste à n'avoir qu'un seul jeu de polygones qui seront utilisés intégralement pour le test et pour l'entraînement. L'astuce réside ici à utiliser une partie des éléments du polygone pour l'entraînement et le reste pour le test, puis de réitérer en changeant les éléments utilisés pour le test et ainsi de suite jusqu'à ce que tous les éléments aient été utilisé pour le test.
 \input{CrossVal}
 \subsection{Les logiciels de classification}
+Nous allons ici présenter quelques logiciels qui permettent de faire de la surveillance d'occupation des sols, il en existe un très grand nombre, c'est pourquoi nous nous sommes concentrés sur les principaux logiciels utilisé dans le domaine.
 \paragraph{QGIS}
 \paragraph{}
 QGIS est un logiciel libre multiplateforme, qui permet de traiter les formats usuels d'image satellite, mais aussi d'y ajouter des couches vectorielles pour délimiter des polygones ou classifier des zones géographiques.
@@ -58,22 +68,12 @@ Le logiciel SAGA, intégré à QGIS, utilise l'algorithme de ressemblance maxima
 Semi-Automatic Classification Plugin, permet également d'obtenir des classifications à partir d'image à l'aide de différents algorithmes.
 OrfeoToolBox est un autre logiciel qui a la possibilité d'être utilisé via Qgis et qui peut réaliser une classification d'images satellite.
 
-\paragraph{ENVI}\footnote{\href{http://www.exelisvis.fr/ProduitsetServices/LesproduitsENVI/ENVI.aspx}{ENVI}}
+\paragraph{ENVI}\footnote{\href{http://www.exelisvis.fr/ProduitsetServices/LesproduitsENVI/ENVI.aspx}{ENvironment for Visualizing Images}}
 \paragraph{}
-ENVI est un logiciel propriétaire payant sous licence commerciale. Il permet de traiter efficacement les données satellite à l'aide de plusieurs algorithmes dont celui de la ressemblance maximum.
+ENVI est un logiciel propriétaire, payant, sous licence commerciale. Il permet de traiter efficacement les données satellite à l'aide de plusieurs algorithmes dont celui de la ressemblance maximum. C'est un logiciel très utilisé dans l'industrie et qui est relativement facile d'utilisation.
+\paragraph{ArcGIS}
 \paragraph{}
-
-\chapter{Implémentation}
-\section{C++ :}
-\paragraph{Les moindres carrés}
-Le premier algorithme à être implémenté en C++ a été celui des moindres carrés, en effet, il est relativement simple à coder si l'on utilise une bibliothèque vectorielle comme eigen qui inclue différentes méthodes de résolution des problèmes linéaires. Nous avons ainsi pu observer notre première image de classification.\ref{firstLSE}\ref{veniseLSE}
-\input{LSE}
-Cette classification n'est pas extrêmement précise, mais elle permet déjà de voir que la précision atteignable avec les images sentinel-2 semble supérieur à ce qui s'est fait par le passé.
-\paragraph{L'analyse discriminante linéaire}
-Cette méthode est encore plus simple à mettre en \oe{}uvre que la précédente, en effet, il suffit de calculer la moyenne et la variance des polygones d'entraînement. Cependant, cette classification est aussi beaucoup moins précise que celle des moindres carrés, et la précision diminue beaucoup plus vite avec la taille des polygones.\ref{veniseLDA}
-\paragraph{Les machines à vecteurs de support}
-Les SVM sont plus compliquées à implémenter, c'est pour cela que nous avons recours à la bibliothèque DLIB, qui nous permet d'avoir accès à des classes déjà définit que nous devons simplement réadapter à notre problème. Mais il faut aussi mettre en place un processus de validation croisée pour choisir les méta-paramètres de cette classification.\ref{veniseSVM}
-\end{multicols}
+Parmi les logiciels payant sous licence propriétaire, on peut aussi noter ArcGIS qui est développé par la société Esri (Environmental Systems Research Institute, Inc.), et qui contient également une boite à outil de traitement des images géographiques relativement complète.
 \bibliography{Biblio}
 \bibliographystyle{plain}
 \end{document}
