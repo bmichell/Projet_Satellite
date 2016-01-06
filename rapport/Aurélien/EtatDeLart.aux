@@ -2,6 +2,7 @@
 \citation{nasa}
 \citation{airSurv}
 \citation{desert}
+\citation{mapping}
 \citation{sent2}
 \@writefile{toc}{\contentsline {section}{\numberline {1}\IeC {\'E}tat de l'art}{1}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {1.1}Imagerie satellite hyperspectrale}{1}}
@@ -10,38 +11,49 @@
 \newlabel{table:codeCouleur}{{2}{2}}
 \@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Code couleur des images produites par machine learning.}}{2}}
 \@writefile{toc}{\contentsline {section}{\numberline {2}R\IeC {\'e}sultats}{2}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}classificateur lin\IeC {\'e}aire}{2}}
-\newlabel{lineaire}{{2.1}{2}}
 \@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces R\IeC {\'e}sutat de classification avec un classificateur lin\IeC {\'e}aire}}{3}}
 \newlabel{fig:veniseLSE}{{3}{3}}
 \@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Matrice de confusion de la classification lin\IeC {\'e}aire}}{3}}
 \newlabel{table:confknn}{{4}{3}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}classificateur lin\IeC {\'e}aire}{3}}
+\newlabel{lineaire}{{2.1}{3}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.2}LDA: Analyse lin\IeC {\'e}aire de discriminant}{3}}
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Matrice de confusion de l'analyse avec discriminant lin\IeC {\'e}aire }}{3}}
-\newlabel{table:veniseLDA}{{1}{3}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}m\IeC {\'e}thode knn:k-nearest-neighbours ou k plus proches voisins}{3}}
 \@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces R\IeC {\'e}sutat de classification avec une analyse lin\IeC {\'e}aire de discriminant}}{4}}
 \newlabel{fig:veniseLDA}{{5}{4}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Matrice de confusion de l'analyse avec discriminant lin\IeC {\'e}aire }}{4}}
+\newlabel{table:veniseLDA}{{1}{4}}
 \newlabel{table:1NN}{{2.3}{4}}
 \@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Matrice de confusion de l'algorithme de 1-plus proche voisin.}}{4}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}m\IeC {\'e}thode knn:k-nearest-neighbours ou k plus proches voisins}{4}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces R\IeC {\'e}sutat de classification avec la m\IeC {\'e}thode du 1-plus proche voisin}}{4}}
-\newlabel{fig:1NN}{{6}{4}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces R\IeC {\'e}sutat de classification avec la m\IeC {\'e}thode du 1-plus proche voisin}}{5}}
+\newlabel{fig:1NN}{{6}{5}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Influence du param\IeC {\`e}tre k sur l'exactitude de l'algorithme.}}{5}}
+\newlabel{fig:kNN}{{7}{5}}
 \citation{NDVI}
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Scores obtenus pouf 100 validations crois\IeC {\'e}es avec diff\IeC {\'e}rents couples de param\IeC {\`e}tres (C,$\gamma $). La couleur d'un point correspond \IeC {\`a} la pr\IeC {\'e}cision moyenne de l'algorithme pour le couple (C,$\gamma $) qui lui sert de coordonn\IeC {\'e}es. Les axes sont en \IeC {\'e}chelle logarithmique.}}{5}}
-\newlabel{fig:crossMap}{{7}{5}}
-\newlabel{table:SVC}{{2.4}{5}}
-\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Matrice de confusion de l'algorithme de Support Vecteur Machine.}}{5}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}Support Vecteur Machine}{5}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.5}Conclusion}{5}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Scores obtenus pouf 100 validations crois\IeC {\'e}es avec diff\IeC {\'e}rents couples de param\IeC {\`e}tres (C,$\gamma $). La couleur d'un point correspond \IeC {\`a} la pr\IeC {\'e}cision moyenne de l'algorithme pour le couple (C,$\gamma $) qui lui sert de coordonn\IeC {\'e}es. Les axes sont en \IeC {\'e}chelle logarithmique.}}{6}}
+\newlabel{fig:crossMap}{{8}{6}}
+\newlabel{table:SVC}{{2.4}{6}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Matrice de confusion de l'algorithme de Support Vecteur Machine.}}{6}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}Support Vecteur Machine}{6}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.5}Conclusion}{6}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces R\IeC {\'e}sutat de classification avec le support vecteur machine.}}{7}}
+\newlabel{fig:veniseSVM}{{9}{7}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Comparaison des classifications obtenues avec diff\IeC {\'e}rentes m\IeC {\'e}thodes.}}{7}}
+\newlabel{fig:comparaison}{{10}{7}}
+\newlabel{table:comp}{{2.5}{8}}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Comparaison des diff\IeC {\'e}rents classificateurs}}{8}}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Influence du nombre de bandes spectrales sur la qualit\IeC {\'e} de classification d'une m\IeC {\'e}thode des 1 plus proches voisins.}}{8}}
+\newlabel{fig:nBandes}{{11}{8}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.6}Limites et am\IeC {\'e}liorations}{8}}
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces R\IeC {\'e}sutat de classification de 4 classes avec le support vecteur machine.}}{8}}
+\newlabel{fig:SVM4Cl}{{12}{8}}
 \bibdata{Biblio}
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces R\IeC {\'e}sutat de classification avec le support vecteur machine.}}{6}}
-\newlabel{fig:veniseSVM}{{8}{6}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.6}Limites et am\IeC {\'e}liorations}{6}}
 \bibcite{sent2}{1}
 \bibcite{airSurv}{2}
-\bibcite{desert}{3}
-\bibcite{nasa}{4}
-\bibcite{NDVI}{5}
+\bibcite{mapping}{3}
+\bibcite{desert}{4}
+\bibcite{nasa}{5}
+\bibcite{NDVI}{6}
+\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces R\IeC {\'e}sutat de classification d'une autre zone en Italie du nord}}{9}}
+\newlabel{fig:zone2}{{13}{9}}
 \bibstyle{plain}
-\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces R\IeC {\'e}sutat de classification de 4 classes avec le support vecteur machine.}}{7}}
-\newlabel{fig:SVM4Cl}{{9}{7}}

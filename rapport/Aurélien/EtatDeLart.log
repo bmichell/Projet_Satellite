@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.9.8)  16 DEC 2015 10:03
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.9.8)  6 JAN 2016 20:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -179,7 +179,10 @@ Overfull \hbox (21.42969pt too wide) in paragraph at lines 13--13
  [][] 
  []
 
-<venise.png, id=1, 1664.2175pt x 1231.60126pt>
+[1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+<venise.png, id=11, 1664.2175pt x 1231.60126pt>
 File: venise.png Graphic file (type png)
  <use venise.png>
 Package pdftex.def Info: venise.png used on input line 32.
@@ -188,57 +191,91 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <7> on input line 39.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <5> on input line 39.
- [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
 Overfull \hbox (7.26903pt too wide) in paragraph at lines 57--58
 \OT1/cmr/m/n/10 clas-sifi-ca-teur lin^^Seaire. Les r^^Sesultats obtenus sont en
 -cour-ageants, avec une premi^^Rere
  []
 
-<veniseLSE.png, id=12, 1664.2175pt x 1231.60126pt>
+[2 <./venise.png (PNG copy)>]
+<veniseLSE.png, id=15, 1664.2175pt x 1231.60126pt>
 File: veniseLSE.png Graphic file (type png)
  <use veniseLSE.png>
 Package pdftex.def Info: veniseLSE.png used on input line 61.
 (pdftex.def)             Requested size: 172.5pt x 127.65878pt.
- [2 <./venise.png (PNG copy)>] <venise+LDA.png, id=17, 1664.2175pt x 1231.60126
-pt>
-File: venise+LDA.png Graphic file (type png)
 
-<use venise+LDA.png>
+<venise+LDA.png, id=17, 1664.2175pt x 1231.60126pt>
+File: venise+LDA.png Graphic file (type png)
+ <use venise+LDA.png>
 Package pdftex.def Info: venise+LDA.png used on input line 89.
 (pdftex.def)             Requested size: 172.5pt x 127.65878pt.
- [3 <./veniseLSE.png>]
-<resultat1NN.png, id=22, 1664.2175pt x 1231.60126pt>
-File: resultat1NN.png Graphic file (type png)
- <use resultat1NN.png>
-Package pdftex.def Info: resultat1NN.png used on input line 134.
-(pdftex.def)             Requested size: 172.5pt x 127.65878pt.
 
-Overfull \hbox (20.19533pt too wide) in paragraph at lines 140--141
+[3 <./veniseLSE.png>] <resultat1NN.png, id=22, 1664.2175pt x 1231.60126pt>
+File: resultat1NN.png Graphic file (type png)
+
+<use resultat1NN.png>
+Package pdftex.def Info: resultat1NN.png used on input line 135.
+(pdftex.def)             Requested size: 172.5pt x 127.65878pt.
+ <influencek.png, id=23, 948.54375pt x 677.53125pt>
+File: influencek.png Graphic file (type png)
+
+<use influencek.png>
+Package pdftex.def Info: influencek.png used on input line 144.
+(pdftex.def)             Requested size: 172.5pt x 123.21162pt.
+
+Overfull \hbox (20.19533pt too wide) in paragraph at lines 151--152
 \OT1/cmr/m/n/10 Cette m^^Sethode utilise deux m^^Setaparam^^Retres : C et $\OML
 /cmm/m/it/10 ^^M$\OT1/cmr/m/n/10 . Afin d'optimiser l'apprentissage
  []
 
-[4 <./venise+LDA.png (PNG copy)> <./resultat1NN.png (PNG copy)>]
-<crossValLog.png, id=26, 578.16pt x 433.62pt>
+[4 <./venise+LDA.png (PNG copy)>] [5 <./resultat1NN.png (PNG copy)> <./influenc
+ek.png (PNG copy)>] <crossValLog.png, id=30, 578.16pt x 433.62pt>
 File: crossValLog.png Graphic file (type png)
- <use crossValLog.png>
-Package pdftex.def Info: crossValLog.png used on input line 144.
+
+<use crossValLog.png>
+Package pdftex.def Info: crossValLog.png used on input line 155.
 (pdftex.def)             Requested size: 172.5pt x 129.37242pt.
-
-<veniseSVM.png, id=27, 614.295pt x 453.19313pt>
+ <veniseSVM.png, id=31, 614.295pt x 453.19313pt>
 File: veniseSVM.png Graphic file (type png)
- <use veniseSVM.png>
-Package pdftex.def Info: veniseSVM.png used on input line 170.
-(pdftex.def)             Requested size: 172.5pt x 127.2597pt.
- [5 <./crossValLog.png>] <SVM4Classes.png, id=35, 612.03656pt x 453.94594pt>
-File: SVM4Classes.png Graphic file (type png)
 
-<use SVM4Classes.png>
-Package pdftex.def Info: SVM4Classes.png used on input line 188.
+<use veniseSVM.png>
+Package pdftex.def Info: veniseSVM.png used on input line 181.
+(pdftex.def)             Requested size: 172.5pt x 127.2597pt.
+ [6 <./crossValLog.png>]
+
+LaTeX Warning: Reference `comparaison' on page 7 undefined on input line 193.
+
+<comparaison.png, id=39, 993.7125pt x 616.3025pt>
+File: comparaison.png Graphic file (type png)
+ <use comparaison.png>
+Package pdftex.def Info: comparaison.png used on input line 197.
+(pdftex.def)             Requested size: 172.5pt x 106.97998pt.
+
+Overfull \hbox (3.3246pt too wide) in paragraph at lines 201--202
+\OT1/cmr/m/n/10 ment un crit^^Rere meilleur que l'autre. Nous avons donc utilis
+^^Se un crit^^Rere num^^Serique
+ []
+
+[7 <./veniseSVM.png> <./comparaison.png (PNG copy)>]
+<nBandes.png, id=47, 1098.1025pt x 538.01pt>
+File: nBandes.png Graphic file (type png)
+ <use nBandes.png>
+Package pdftex.def Info: nBandes.png used on input line 221.
+(pdftex.def)             Requested size: 172.5pt x 84.51537pt.
+
+<SVM4Classes.png, id=48, 612.03656pt x 453.94594pt>
+File: SVM4Classes.png Graphic file (type png)
+ <use SVM4Classes.png>
+Package pdftex.def Info: SVM4Classes.png used on input line 230.
 (pdftex.def)             Requested size: 172.5pt x 127.94211pt.
- (./EtatDeLart.bbl [6 <./veniseSVM.png>]
+
+[8 <./nBandes.png (PNG copy)> <./SVM4Classes.png>]
+<zone2.png, id=53, 1132.23pt x 435.6275pt>
+File: zone2.png Graphic file (type png)
+ <use zone2.png>
+Package pdftex.def Info: zone2.png used on input line 243.
+(pdftex.def)             Requested size: 241.49895pt x 92.9136pt.
+ (./EtatDeLart.bbl
 Underfull \hbox (badness 6461) in paragraph at lines 4--8
 []\OT1/cmr/m/n/10 European Space Agency.  $\OT1/cmtt/m/n/10 http : / / www . es
 a . int / Our \ _Activities /
@@ -250,35 +287,40 @@ Underfull \hbox (badness 10000) in paragraph at lines 4--8
 ucing \
  []
 
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 32.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 39.
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 32.
-) [7 <./SVM4Classes.png>] (./EtatDeLart.aux) ) 
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 39.
+ [9 <./zone2.png (PNG copy)>]) [10] (./EtatDeLart.aux)
+
+LaTeX Warning: There were undefined references.
+
+ ) 
 Here is how much of TeX's memory you used:
- 2444 strings out of 494999
- 34069 string characters out of 6180229
- 96562 words of memory out of 5000000
- 5632 multiletter control sequences out of 15000+600000
- 8101 words of font info for 29 fonts, out of 8000000 for 9000
+ 2473 strings out of 494999
+ 34495 string characters out of 6180229
+ 95611 words of memory out of 5000000
+ 5656 multiletter control sequences out of 15000+600000
+ 8409 words of font info for 30 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 37i,9n,23p,944b,653s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/ty
-pe1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7
-.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><
-/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/sh
-are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/te
-xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on EtatDeLart.pdf (7 pages, 15681665 bytes).
+ 37i,8n,23p,1087b,653s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texl
+ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+tt10.pfb>
+Output written on EtatDeLart.pdf (10 pages, 16863847 bytes).
 PDF statistics:
- 80 PDF objects out of 1000 (max. 8388607)
- 49 compressed objects within 1 object stream
+ 97 PDF objects out of 1000 (max. 8388607)
+ 58 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 36 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 56 words of extra memory for PDF output out of 10000 (max. 10000000)
 
