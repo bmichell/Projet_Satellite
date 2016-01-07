@@ -16,7 +16,21 @@ Cette classification a été réalisée grâce à des données d'imagerie multis
 \subsection{Imagerie satellite multispectrale}
 
 Une image photographique couleur "classique" contient en réalité trois images : l'une dans le rouge, l'autre dans le vert et la troisième dans le bleu (RGB en anglais ou RVB en français). Elle ne contient donc que des informations dans le visible. 
+\begin{figure}
+  \centering
+    \includegraphics[width=0.5\textwidth]{veniseRGB}
+  \caption{Image RGB du Nord de l'Italie (près de Venise)}
+  \label{fig:veniseRGB}
+\end{figure}
+
 Une image multispectrale, quant à elle, est formée de nombreuses images prises à des longueurs d'ondes variées. Elle contient donc plus d'informations, et selon les longueurs d'ondes d'acquisition peut avoir, en plus du visible, des informations dans l'ultraviolet ou l'infrarouge.
+
+\begin{figure}
+  \centering
+    \includegraphics[width=0.5\textwidth]{multispectrale.png}
+  \caption{Image multispectrale du Nord de l'Italie (près de Venise)}
+  \label{fig:veniseMulti}
+\end{figure}
 
 A partir de ces données multispectrales, il est possible de calculer des indices comme le NDVI (normalized difference vegetation index), permettant d'établir la présence ou l'absence de végétation dans une zone. En effet, les plantes chlorophyliennes absorbent fortement la lumière rouge et réfléchissent la lumière proche infrarouge : la différence normalisée d'intensité entre ces deux bandes correspond à l'indice NDVI. Une valeur proche de 1 indique la présence de végétation, et une valeur proche de 0 son absence. L'utilisation de cet indice est très courante, pour l'étude de la désertification de zones dues à l'activité humaine\cite{desert} par exemple.
 
@@ -31,7 +45,37 @@ Néanmoins, la mission de l'Esa est récente : peu de données sont actuellement
 
 \subsection{Classification et Machine Learning}
 
-La classification de ces données multispectrales se fait à travers des algorithmes de "Machine Learning" (apprentissage automatique). 
+Pour exploiter ces données, il est nécessaire de les classifier. On cherche en effet à distinguer les différentes caractéristiques des sols observés. Les données multispectrales à traiter représentant une quantité très importante, leur classification se fait à travers des algorithmes de "Machine Learning", défini en ces termes : 
+
+\textit{L'apprentissage automatique (Machine Learning en anglais), champ d'étude de l'intelligence artificielle, concerne la conception, l'analyse, le développement et l'implémentation de méthodes permettant à une machine (au sens large) d'évoluer par un processus systématique, et ainsi de remplir des tâches difficiles ou impossibles à remplir par des moyens algorithmiques plus classiques.\footnote{\href{https://fr.wikipedia.org/wiki/Apprentissage_automatique}{Apprentissage automatique}}}
+
+\paragraph{}
+Le machine learning se sépare en trois type d'apprentissage :
+\begin{itemize}
+  \item[>] L'apprentissage non-supervisé, qui consiste à donner à notre algorithme uniquement les données à classifier et à le laisser établir les différentes classes à partir des ensembles qui se séparent le mieux.
+  \item[>] La régression, qui cherche à définir les données à l'aide d'une loi mathématique.
+  \item[>] L'apprentissage supervisé, pour lequel il faut définir, en plus des données à traiter, des ensembles de vecteurs représentatifs de chacune des classes et déjà classés. Les vecteurs classés manuellement vont servir d’entraînement pour l'apprentissage et donc pour trouver les frontières qui séparent le mieux nos différentes classes.
+\end{itemize}
+
+\paragraph{}
+Dans le cas de la surveillance d'occupation des sols, on utilise souvent des méthodes supervisées, car il est relativement aisé de reconnaître à l'œil les différents types de zones au sol (eau, champs, villes, ...). Là encore, il existe plusieurs familles d'algorithmes d'apprentissage supervisé, on différenciera dans un premier temps les algorithmes linéaires et non-linéaires. Dans la famille des algorithmes non-linéaire, on trouve des algorithmes intrinsèquement multi-classes (tel que l'algorithme dit des k-plus proches voisins que nous détaillerons plus tard), et les algorithmes binaires.
+\input{diagrammeML}%pas sûr que le diagramme soit utile finalement...
+\paragraph{}
+Pour les algorithmes intrinsèquement multi-classes, il suffit de stocker les vecteurs d’entraînement et d'appliquer directement la classification à l'ensemble des données, il n'y a donc pas d’entraînement à proprement parler.
+\paragraph{}
+Les algorithmes binaires, quant à eux, demandent un peu plus de travail. Dès que l'on veut traiter plus de deux classes, il faut faire plusieurs entraînements, en se ramenant chaque fois à un problème binaire. Là encore, il y a deux approches possibles en fonction des algorithmes :
+ \begin{itemize}
+   \item[>] La première approche s'appelle "un contre tous", elle consiste ,comme son nom l'indique, à prendre chaque classe et à l'opposer à l'ensemble des autres classes. On obtient alors n problèmes binaires et pour un élément à classifier, en cas d'ambiguïté, la classe qui obtient le plus de "votes" favorables est choisie.
+   \item[>] La seconde méthode est le "un contre un", toutes les classes sont "opposées" successivement, deux à deux, et de la même façon c'est la classe qui obtient le plus de "votes" favorables qui est choisie. La principale différence réside dans le fait qu'il y ait dans ce cas ${n \choose 2}=\frac{n(n-1)}{2}$ entraînements à réaliser.
+ \end{itemize}
+%parler de la logique entrainement/test
+\subsection{L'évaluation}
+\paragraph{La matrice de confusion\newline}
+La matrice de confusion est le principal outil de mesure de la qualité d'une classification. Pour la construire, il faut, dans un premier temps fournir un ensemble de données, dont on connaît déjà la classe, et dont on va classifier les éléments à l'aide de notre algorithme. La matrice de confusion va alors servir à synthétiser toutes les informations que l'on peut en tirer en comparant pour chaque vecteur la classe théorique (celle que l'on connaissait au préalable) et le résultat de la classification.\ref{ConfMat}
+\input{MatriceConfusion}
+\paragraph{La validation croisée\newline}
+Il s'agit d'une technique d'évaluation de la classification qui va nous permettre de maximiser la taille des polygones d'entraînement et de test. En effet, cette technique consiste à n'avoir qu'un seul jeu de polygones qui seront utilisés intégralement pour le test et pour l'entraînement. L'astuce réside ici à utiliser une partie des éléments du polygone pour l'entraînement et le reste pour le test, puis de réitérer en changeant les éléments utilisés pour le test et ainsi de suite jusqu'à ce que tous les éléments aient été utilisé pour le test.
+\input{CrossVal}
 
 \subsection{Motivation du projet et cahier des charges}
 
@@ -40,4 +84,6 @@ Bien que ce projet s'étende sur une durée assez courte (6 semaines), les objec
   - Définir les principaux intérêts des images multispectrales Sentinel 2
   - Etablir une classification de la surface terrestre (suivi d'occupation des sols) en trois classes ("Eau", "Urbain","Champ") à partir d'une image de la base de données Sentinel 2
   - Tester les algorithmes de Machine Learning les plus répandus
+  
+  Dans un but de répétabilité, nous avons testé et optimisé toutes nos méthodes de machine learning sur une unique image hyperspectrale (dont une vue en RGB est donnée en figure \ref{fig:veniseRGB}).
  
