@@ -1,12 +1,14 @@
 \documentclass[a4paper,10pt]{report}
+
 \input{include.tex}
+\usepackage{float}
+\graphicspath{{pictures/}}
 \DeclareUnicodeCharacter{00A0}{ }
 \widowpenalty=10000
 \clubpenalty=10000
 \input{environnements.tex}
 \setlength{\parindent}{0.5cm}
 \begin{document}
-
 \title{Projet Imagerie Multispectrale}
 \author{Aurélien Barbotin Pierre David Benjamin Michelland Youna le Vaou}
 
@@ -19,27 +21,64 @@
 \subsection{Travaux scientifiques}
 %parler des articles qu'Aurélien a trouvé pour la soutenance
 
+Les données multispectrales des satellites MODIS sont largement utilisées par la communauté scientifique. Ici on présentera trois publications qui utilisent différentes approches de la surveillance satellite.
+
+\paragraph{}
+L'analyse des données multispectrales peut se faire en calculant des indices particuliers, comme le NDVI (normalized difference vegetation index). Le NDVI permet d'établir la présence ou l'absence de végétation dans une zone. En effet, les plantes chlorophyliennes absorbent fortement la lumière rouge et réfléchissent la lumière proche infrarouge : la différence normalisée d'intensité entre ces deux bandes correspond à l'indice NDVI. 
+\begin{equation}
+NDVI=\frac{NIR-VIS}{NIR+VIS}
+\end{equation}
+Où NIR correspond à l'intensité lumineuse dans le proche infrarouge et VIS dans le rouge.\newline
+Une valeur proche de 1 indique la présence de végétation, et une valeur proche de 0 son absence. L'utilisation de cet indice est très courante. Il a ainsi été utilisé pour l'étude de la désertification de zones dues à l'activité humaine\cite{desert} par Meng-Lung et al.
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=0.5\textwidth]{etudeDesertification.png}
+  \caption{Etude de la désertification, image tirée de l'article \textit{Fuzzy model based assessment and monitoring of desertification using MODIS satellite imagery}, Meng-Lung Lin et al. (2009)}
+  \label{fig:etudeDesert}
+\end{figure}
+
+\paragraph{}
+En outre, les données satellites peuvent servir à analyser la qualité de l'air au niveau du sol et, entre autres, en déduire la présence d'évènements exceptionnels comme des feux de forêt ou du brouillard\cite{airSurv}. 
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=0.5\textwidth]{surveillanceAtmo.png}
+  \caption{Suivi atmosphérique, image tirée de l'article \textit{Qualitative and quantitative evaluation of MODIS satellite sensor data for regional and urban scale air quality}, Engel-Cox et al. (2004)}
+  \label{fig:survAtmo}
+\end{figure}
+
+\paragraph{}
+Plus proche de notre projet, la classification peut se faire par des algorithmes de machine learning. Cette approche a été suivie dans l'étude menée par M.A. Friedl et al. 
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=0.75\textwidth]{classifSols.png}
+  \caption{Classification des sols, image tirée de l'article \textit{Global land cover mapping from MODIS: algorithms and early results}, M.A. Friedl et al. (2002)}
+  \label{fig:clSols}
+\end{figure}
+
 \subsection{Les logiciels de classification}
-Nous allons ici présenter quelques logiciels qui permettent de faire de la surveillance d'occupation des sols, il en existe un très grand nombre, c'est pourquoi nous nous sommes concentrés sur les principaux logiciels utilisé dans le domaine.
+Nous allons ici présenter quelques logiciels qui permettent de faire de la surveillance d'occupation des sols. Il en existe un très grand nombre, c'est pourquoi nous nous sommes concentrés sur les principaux logiciels utilisés dans le domaine.
 \paragraph{QGIS}
 \paragraph{}
 QGIS est un logiciel libre multiplateforme, qui permet de traiter les formats usuels d'image satellite, mais aussi d'y ajouter des couches vectorielles pour délimiter des polygones ou classifier des zones géographiques.
-De plus, la communauté de QGIS a développé de nombreux plugins permettant d'appliquer différents algorithmes de machine learning.\newline
-Le logiciel SAGA, intégré à QGIS, utilise l'algorithme de ressemblance maximale, qui permet de faire une classification statistique des pixels, ayant choisi des polygones d’entraînement, ils vont être assimilés à des lois normales et à partir de leurs moyennes et de leurs variances, les pixel inconnus vont appartenir à la classe à laquelle ils ont le plus de chance d'appartenir.
+De plus, la communauté de QGIS a développé de nombreux "plugins" (modules d'extension) permettant d'appliquer différents algorithmes de machine learning.\newline
+Le logiciel SAGA, intégré à QGIS, utilise l'algorithme de ressemblance maximale, qui permet de faire une classification statistique des pixels. Ayant choisi des polygones d’entraînement, ils vont être assimilés à des lois normales et à partir de leurs moyennes et de leurs variances, les pixel inconnus vont appartenir à la classe à laquelle ils ont le plus de chance d'appartenir.
 Semi-Automatic Classification Plugin, permet également d'obtenir des classifications à partir d'image à l'aide de différents algorithmes.
 OrfeoToolBox est un autre logiciel qui a la possibilité d'être utilisé via Qgis et qui peut réaliser une classification d'images satellite.
 
-\paragraph{ENVI}\footnote{\href{http://www.exelisvis.fr/ProduitsetServices/LesproduitsENVI/ENVI.aspx}{ENvironment for Visualizing Images}}
+\paragraph{ENVI}
 \paragraph{}
-ENVI est un logiciel propriétaire, payant, sous licence commerciale. Il permet de traiter efficacement les données satellite à l'aide de plusieurs algorithmes dont celui de la ressemblance maximum. C'est un logiciel très utilisé dans l'industrie et qui est relativement facile d'utilisation.
+ENVI ({\href{http://www.exelisvis.fr/ProduitsetServices/LesproduitsENVI/ENVI.aspx}{ENvironment for Visualizing Images}}) est un logiciel propriétaire, payant, sous licence commerciale. Il permet de traiter efficacement les données satellites à l'aide de plusieurs algorithmes dont celui de la ressemblance maximum. C'est un logiciel très utilisé dans l'industrie et qui est relativement facile d'utilisation.
 \paragraph{ArcGIS}
 \paragraph{}
-Parmi les logiciels payant sous licence propriétaire, on peut aussi noter ArcGIS qui est développé par la société Esri (Environmental Systems Research Institute, Inc.), et qui contient également une boite à outil de traitement des images géographiques relativement complète.
+Parmi les logiciels payant sous licence propriétaire, on peut aussi noter ArcGIS, développé par la société Esri (Environmental Systems Research Institute, Inc.). Il contient également une boîte à outil de traitement des images géographiques relativement complète.
 
 
 \section{Résultats}
 Le résultat d'une classification est une image RGB dont la couleur de chaque pixel représente la classe à laquelle il appartient selon l'algorithme. Par exemple, dans une image résultat, un pixel bleu correspond à un point indentifé par l'algorithme comme étant de l'eau. Notre code couleur est résumé dans le tableau \ref{table:codeCouleur}.
-\begin{figure}
+\begin{figure}[H]
  \begin{center}
   \begin{tabular}{|c|c|}
     \hline
@@ -55,17 +94,17 @@ Le résultat d'une classification est une image RGB dont la couleur de chaque pi
 \caption{Code couleur des images produites par machine learning.} 
 \end{center}
 \end{figure}
-Estimer la qualité d'un classificateur revient à estimer la qualité de l'image résultante. Pour cela, deux méthodes s'offrent à nous: la première numérique, consiste à calculer la matrice de confusion de chaque classificateur comme expliqué INSERER ICI OU CEST EXPLIQUE. L'autre méthode consiste à estimer à l'oeil la correspondance entre les prédictions de nos algorithmes et la réalité (les zones de référence étant elles-mêmes choisies à l'oeil, ce critère n'est pas plus mauvais que l'autre). Pour immédiatement visualiser cette correspondance, nous superposons l'image de base avec l'image résultante en transparence, comme par exemple sur la figure \ref{fig:veniseLSE}.
+Estimer la qualité d'un classificateur revient à estimer la qualité de l'image résultante. Pour cela, deux méthodes s'offrent à nous: la première numérique, consiste à calculer la matrice de confusion de chaque classificateur comme expliqué INSERER ICI OU CEST EXPLIQUE. Pour plus de clarté, l'exactitude sera en rouge. L'autre méthode consiste à estimer à l'oeil la correspondance entre les prédictions de nos algorithmes et la réalité (les zones de référence étant elles-mêmes choisies à l'oeil, ce critère n'est pas plus mauvais que l'autre). Pour immédiatement visualiser cette correspondance, nous superposons l'image de base avec l'image résultante en transparence, comme par exemple sur la figure \ref{fig:veniseLSE}.
 
  \subsection{Les classifications linéaires}
  
- Réaliser une classification linéaire d'un ensemble de données en différentes classes revient, en deux dimensions, à trouver la droite qui sépare au mieux deux ensembles de vecteurs.
+ Réaliser une classification linéaire d'un ensemble de données en différentes classes revient, en deux dimensions, à trouver la droite qui sépare au mieux deux ensembles de vecteurs. Dans la figure \ref{fig:ml_lin}, on prend l'exemple d'un ensemble de points représentant de l'eau et de l'urbain. Sur l'image, les points représentant l'eau auront une couleur plutôt bleue alors que les points représentant des zones urbaines seront plutôt rouge, voire gris. Ils sont assez bien distingués pour trouver une séparation linéaire.
 
-\begin{figure}
+\begin{figure}[H]
   \centering
     \includegraphics[width=0.5\textwidth]{ml_lin.png}
   \caption{Classification linéaire}
-  \label{fig:LSE}
+  \label{fig:ml_lin}
 \end{figure}
 
 Il existe plusieurs méthodes pour trouver une droite qui sépare correctement les deux ensembles de points.
@@ -73,56 +112,72 @@ Il existe plusieurs méthodes pour trouver une droite qui sépare correctement l
 \paragraph{La méthode des moindres carrés}
   La première méthode consiste à faire l'hypothèse que tous les points des deux ensembles sont alignés, et qu'on peut alors trouver une droite telle que tous les points soient à une distance de 1, pour l'une des deux classes, et de -1 pour l'autre. On se ramène alors à une optimisation linéaire qui peut être résolue par la méthode des moindres carrés.
   C'est la première classification que nous avons testée et aussi la seule que nous avons entièrement implémentée nous-mêmes. 
-\label{lineaire}
- Les résultats obtenus sont encourageants, avec une première classification qui à première vue correspond à la répartition réelle des trois classes étudiées (figure \ref{fig:veniseLSE} avec la matrice de confusion correspondante \ref{table:confknn}).
-
-\begin{figure}
+  
+  \begin{figure}[H]
   \centering
-    \includegraphics[width=0.5\textwidth]{veniseLSE}
+    \includegraphics[width=0.75\textwidth]{ml_lse}
+  \caption{Classification linéaire}
+  \label{fig:ml_lse}
+\end{figure}
+  
+\label{lineaire}
+ Les résultats obtenus sont encourageants, avec une première classification qui à première vue correspond à la répartition réelle des trois classes étudiées (figure \ref{fig:veniseLSE} avec la matrice de confusion correspondante \ref{table:confLSE}).
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=0.75\textwidth]{veniseLSE}
   \caption{Résutat de classification avec un classificateur linéaire}
   \label{fig:veniseLSE}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[H]
 \begin{center}
  \begin{tabular}{|c|c|c|c|c|}
   \hline
-  Nature du terrain & Ville & Champ & Eau & Rappel \\
+  Nature du terrain & Eau & Champ & Urbain & Rappel \\
   \hline
-Ville & 5309   &   878    &   15 & 0.856014 \\
-Champ & 1296   &  9832     &   0  & 0.883537 \\
-Eau &  2   &     0  &   6350 & 0.999685 \\
-Précision & 0.803542  & 0.918021 & 0.997643 & 0.907483 \\
+Eau & 10000   &   0    &   0 & 100\% \\
+Champ & 0   &  9991     &   9  & 99.9\% \\
+Urbain &  11   &     2712  &   7277 & 72.8\% \\
+Précision & 99.9\%  & 78.9\% & 99.9\% & {\color{red}90.9\%} \\
   \hline
 \end{tabular}
 \end{center}
 \caption{Matrice de confusion de la classification linéaire}
-\label{table:confknn}
+\label{table:confLSE}
 \end{figure}
 
-La précision totale de cette méthode est de 90.7\%. On peut constater que l'eau est très bien classifiée, et que les erreurs proviennent majoritairement de confusions entre les champs et la ville.
+L'exactitude de cette méthode est de 90.9\%. On peut constater que l'eau est très bien classifiée, et que les erreurs proviennent majoritairement de confusions entre les champs et la ville. Il est également intéressant de voir que cette confusion n'est pas symmétrique : si lez zones urbaines sont classifiées comme des champs par l'algorithme, l'inverse est beaucoup moins vrai.
 
 \paragraph{Analyse discriminante linéaire ou de Fisher}
   Une seconde méthode consiste à utiliser l'analyse discriminante linéaire\footnote{ou analyse discriminante de Fisher}(LDA), c'est-à-dire poser l'hypothèse que chaque ensemble de points a une distribution gaussienne, et à trouver, à partir de la variance et de la moyenne de ces distributions la meilleure séparation entre les ensembles. On peut voir cette méthode comme une recherche de droite sur laquelle la projection des gaussiennes est la mieux séparé, la meilleure séparation est alors l'hyperplan perpendiculaire à cette droite. Cependant, dans la pratique, l'hypothèse de distribution gaussienne est très forte et rarement vérifiée.
-  
-  En effet, nous avons choisi des polygones de manière à ce qu'ils contiennent le moins de points possibles, les plus représentatifs possibles, afin de diminuer les temps de calcul. Ce faisant, nous n'avons pas pris un échantillon continu de points et l'approximation gaussienne est difficilement valable, ce qui explique les mauvais résultats obtenus, en particulier sur les zones de ville.
-\begin{figure}
+
+\begin{figure}[H]
   \centering
-    \includegraphics[width=0.5\textwidth]{venise+LDA}
+    \includegraphics[width=0.4\textwidth]{ml_lda}\hfill
+    \includegraphics[width=0.5\textwidth]{ml_ldaReel}
+  \caption{Analyse discriminante linéaire : hypothèse (à g.) vs repartition réelle (à d.)}
+  \label{fig:ml_lda}
+\end{figure}
+
+  En effet, nous avons choisi des polygones de manière à ce qu'ils contiennent le moins de points possibles, les plus représentatifs possibles, afin de diminuer les temps de calcul. Ce faisant, nous n'avons pas pris un échantillon continu de points et l'approximation gaussienne est difficilement valable, ce qui explique les mauvais résultats obtenus, en particulier sur les zones de ville.
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=0.75\textwidth]{venise+LDA}
   \caption{Résutat de classification avec une analyse linéaire de discriminant}
   \label{fig:veniseLDA}
 \end{figure}
 
-\begin{table}
+\begin{table}[H]
 \begin{center}
  \begin{tabular}{|c|c|c|c|c|}
   \hline
-  Nature du terrain & Ville & Champ & Eau & Rappel \\
+  Nature du terrain & Eau & Champ & Urbain & Rappel \\
   \hline
-Ville & 2026  &   4176  &      0 & 0.326669 \\
-Champ & 675  &  10453   &     0 & 0.9393427 \\
-Eau &  0    &    0  &   6352   &     1 \\
-Précision & 0.750093 & 0.71454  &      1 & 0.795161\\
+Eau & 9966  &   0  &      34 & 99.7\% \\
+Champ & 0  &  10000   &     0 & 100\% \\
+Urbain &  0    &    6461  &   3539   &     35.4\% \\
+Précision & 100\% & 60.7\%  &      99.0\% & {\color{red}78.4\%}\\
   \hline
 \end{tabular}
 \end{center}
@@ -133,14 +188,36 @@ Précision & 0.750093 & 0.71454  &      1 & 0.795161\\
      
 
 \subsection{Les classifications non-linéaires}
+
+Dans certains cas, les ensembles sont impossibles à classifier de manière linéaire. Il faut alors utiliser des algorithmes non linéaires. Dans la figure \ref{fig:ml_nlin}, on souhaite classifier un ensemble de points représentant l'eau et les champs. Les points représentant l'eau sont toujours plutôt bleus, mais les points représentant les champs peuvent varier du vert au jaune, voire des teintes rouges. Les données sont alors beaucoup plus compliquées à classifier efficacement de manière linéaire. 
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=0.5\textwidth]{ml_nlin}
+  \caption{Classification non linéaire}
+  \label{fig:ml_nlin}
+\end{figure}
+
 \paragraph{Machine à Vecteurs de Support (SVM) :}
 
-Les SVM ont été développées dans les années 1990 d'après les travaux de Vladimir Vapnik, elle généralise les classificateurs linéaires en cherchant une séparation linéaire de marge maximum. Pour cela, l'idée est dans un premier temps de chercher les vecteurs des différentes classes qui définissent le mieux l'enveloppe de chaque classe, et de trouver l'hyperplan qui maximise l'écart à ces vecteurs de support.
-Pour augmenter la précision de la classification, il est intéressant de trouver une frontière non-linéaire. Pour ce faire, on utilise l'astuce du noyau (ou kernel trick). Le \textit{kernel trick}\cite{aizermanSVM} consiste à remplacer le produit scalaire de l'espace considéré par l'évaluation d'une fonction (appelée noyau), on peut ramener l'étude d'un problème non séparable linéairement, à un problème linéaire. La classification admet alors des méta-paramètres, qui devront être fixés par l'utilisateur avant de réaliser l'entraînement. Afin d'optimiser l'apprentissage et la classification de notre image, il faut trouver les métaparamètres idéaux. Pour cela, on utilise une méthode d'évaluation dite validation croisée qui est expliquée plus en détails par la suite\footnote{voir le paragraphe : L'évaluation}
+Les SVM ont été développées dans les années 1990 d'après les travaux de Vladimir Vapnik. Cette approche généralise les classificateurs linéaires en cherchant une séparation linéaire de marge maximum. Pour cela, l'idée est dans un premier temps de chercher les vecteurs des différentes classes qui définissent le mieux l'enveloppe de chaque classe, et de trouver l'hyperplan qui maximise l'écart à ces vecteurs de support.
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=0.5\textwidth]{ml_svm}
+  \caption{Classification par SVM}
+  \label{fig:ml_svm}
+\end{figure}
+
+Pour augmenter la précision de la classification, il est intéressant de trouver une frontière non-linéaire. Pour ce faire, on utilise l'astuce du noyau (ou kernel trick). Le \textit{kernel trick}\cite{aizermanSVM} consiste à remplacer le produit scalaire de l'espace considéré par l'évaluation d'une fonction (appelée noyau), on peut ramener l'étude d'un problème non séparable linéairement, à un problème linéaire. La classification admet alors des méta-paramètres, qui devront être fixés par l'utilisateur avant de réaliser l'entraînement. Afin d'optimiser l'apprentissage et la classification de notre image, il faut trouver les métaparamètres idéaux. Pour cela, on utilise une méthode d'évaluation dite validation croisée.
+
+\subparagraph{La validation croisée\newline}
+Il s'agit d'une technique d'évaluation de la classification qui va nous permettre de maximiser la taille des polygones d'entraînement et de test. En effet, cette technique consiste à n'avoir qu'un seul jeu de polygones qui seront utilisés intégralement pour le test et pour l'entraînement. L'astuce réside ici à utiliser une partie des éléments du polygone pour l'entraînement et le reste pour le test, puis de réitérer en changeant les éléments utilisés pour le test et ainsi de suite jusqu'à ce que tous les éléments aient été utilisé pour le test.
+\input{CrossVal}
 
 Dans notre cas, on utilise deux métaparamètres : C et $\gamma$. on sépare notre jeu de données en 5, 4 parts servant à l'apprentissage et la dernière part au test. On fait ce test 100 fois pour 100 couples de valeurs (C,$\gamma$), et le jeu de paramètres obtenant le meilleur score de précision lors de la validation croisée correspondaux paramètres que l'on utilisera. Afin de déterminer visuellement si l'on a trouvé un set de paramètres optimal, on représente les résultats des différentes validations croisées sur une courbe en deux dimensions (figure \ref{fig:crossMap}).
 
-\begin{figure}
+\begin{figure}[H]
   \centering
     \includegraphics[width=0.5\textwidth]{crossValLog}
   \caption{Scores obtenus pouf 100 validations croisées avec différents couples de paramètres (C,$\gamma$). La couleur d'un point correspond à la précision moyenne de l'algorithme pour le couple (C,$\gamma$) qui lui sert de coordonnées. Les axes sont en échelle logarithmique.}
@@ -149,16 +226,16 @@ Dans notre cas, on utilise deux métaparamètres : C et $\gamma$. on sépare not
 
 Cette figure montre qu'en effet, la précision de l'algorithme dépend du choix judicieux des métaparamètres. Le meilleur choix de métaparamètres dans notre cas est le couple (C,$\gamma$)=(1,$ 10^{-3}$). Nous obtenons alors l'image \ref{fig:veniseSVM} et la matrice de confusion \ref{table:SVC}.
 
-\begin{table}
+\begin{table}[H]
 \begin{center}
  \begin{tabular}{|c|c|c|c|c|}
   \hline
-  Nature du terrain & Ville & Champ & eau & Rappel \\
+  Nature du terrain & Eau & Champ & Urbain & Rappel \\
   \hline
-Ville & 9867 & 133 & 	0 &	98.67 \\
-Champ & 159 &	9841 &	0 &	98.41 \\
-Eau &  38 &	0 &	9962 &	99,62 \\
-Précision & 98.04 & 98.6 & 100 & 98.9 \\
+Eau & 9999 & 0 & 	1 &	100\% \\
+Champ & 0 &	9991 &	9 &	99.9\% \\
+Urbain &  0 &	244 &	9756 &	97.6\% \\
+Précision & 100\% & 97.6\% & 99.9\% & {\color{red}99.1\%} \\
   \hline
   \end{tabular}
 \end{center}
@@ -166,29 +243,39 @@ Précision & 98.04 & 98.6 & 100 & 98.9 \\
 \caption{Matrice de confusion de l'algorithme de Support Vecteur Machine.}
 \end{table}
 
-\begin{figure}
+\begin{figure}[H]
   \centering
-    \includegraphics[width=0.5\textwidth]{veniseSVM}
+    \includegraphics[width=0.75\textwidth]{veniseSVM}
   \caption{Résutat de classification avec le support vecteur machine.}
   \label{fig:veniseSVM}
 \end{figure}
 
 
 \paragraph{Les K plus proches voisins :}
-%expliquer la méthode
-\subsection{méthode knn:k-nearest-neighbours ou k plus proches voisins}
-La méthode des k-nearest neighbors présente des résultats intéressants, et nous avons obtenu une classification très précise avec cette méthode. Nous avons testé cette méthode avec différentes valeurs de k (1 à 10, 20, 200) et il s'est avéré que les plus faibles valeurs de k sont aussi celles qui fournissent la meilleure exactitude (voir figure \ref{fig:kNN}), ce qui nous laisse penser que les points sont naturellement bien séparés. Nous avons donc choisi de faire notre classification avec la valeur du paramètre k=1. Les résultats obtenus sont montrés sur la figure \ref{fig:1NN} et le tableau \ref{table:1NN}.
 
-\begin{table}
+La méthode des k plus proches voisins part d'une idée assez simple. Considérons un ensemble de points, dont les caractéristiques et les classes sont connues. Considérons un nouvel élément à classer. L'idée est qu'il sera de la même classe que le ou les points de caractéristiques les plus proches. Cette méthode présente donc aussi un méta-paramètre : le nombre de voisins k à prendre en compte. 
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=1.1\textwidth]{ml_knn}
+  \caption{Classification k plus proches voisins}
+  \label{fig:ml_knn}
+\end{figure}
+
+Nous avons testé cette méthode avec différentes valeurs de k (1 à 10, 20, 200) et il s'est avéré que les plus faibles valeurs de k sont aussi celles qui fournissent la meilleure exactitude (voir figure \ref{fig:kNN}), ce qui nous laisse penser que les points sont naturellement bien séparés. Nous avons donc choisi de faire notre classification avec la valeur du paramètre k=1. Les résultats obtenus sont montrés sur la figure \ref{fig:1NN} et le tableau \ref{table:1NN}.
+
+La méthode des k-nearest neighbors présente des résultats intéressants, et nous avons obtenu une classification très précise avec cette méthode. 
+
+\begin{table}[H]
 \begin{center}
  \begin{tabular}{|c|c|c|c|c|}
   \hline
-  Nature du terrain & champ & ville & eau & Rappel \\
+  Nature du terrain & Eau & Champ  & Urbain & Rappel \\
   \hline
-Champ & 9929 & 71 & 	0 &	99.29 \\
-Ville & 540 &	9460 &	0 &	94.6 \\
-Eau &  0 &	0 &	10000 &	100 \\
-Précision & 99.29 & 94.6 & 100 & 97.96 \\
+Eau & 9999 & 0 & 	1 &	100\% \\
+Champ & 0 &	9929 &	71 &	99.3\% \\
+Urbain &  0 &	540 &	9460 &	94.6\% \\
+Précision & 100\% & 94.8\% & 99.2\% & {\color{red}98.0\%} \\
   \hline
 \end{tabular}
 \end{center}
@@ -196,18 +283,18 @@ Précision & 99.29 & 94.6 & 100 & 97.96 \\
 \caption{Matrice de confusion de l'algorithme de 1-plus proche voisin.}
 \end{table}
 
-\begin{figure}
+\begin{figure}[H]
   \centering
-    \includegraphics[width=0.5\textwidth]{resultat1NN}
+    \includegraphics[width=0.75\textwidth]{resultat1NN}
   \caption{Résutat de classification avec la méthode du 1-plus proche voisin}
   \label{fig:1NN}
 \end{figure}
 
-On observe également une exactitude en moyenne moindre pour les valeurs paires de k, par rapport aux valeurs impaires : cela vient du fait que nous n'avons pas mis en place de système de vote en cas de conflit. En effet, si la moitié des voisins appartiennent à une classe, et l'autre moitié appartient à une autre classe, le système choisit aléatoirement dans quelle classe placer le pixel. Il est possible de remédier à cela en choisissant un système de vote adapté (par exemple, en cas d'égalité, calculer la distance à chaque voisin et choisir la classe pour laquelle la distance totale est la plus faible.)
+On observe également une exactitude en moyenne moindre pour les valeurs paires de k, par rapport aux valeurs impaires : cela vient du fait que nous n'avons pas mis en place de système de vote en cas de conflit. En effet, si la moitié des voisins appartiennent à une classe, et l'autre moitié appartient à une autre classe, le système choisit aléatoirement dans quelle classe placer le pixel. Il est possible de remédier à cela en choisissant un système de vote adapté (par exemple, en cas d'égalité, calculer la distance à chaque voisin et choisir la classe pour laquelle la distance totale est la plus faible).
 
-\begin{figure}
+\begin{figure}[H]
   \centering
-    \includegraphics[width=0.5\textwidth]{influencek.png}
+    \includegraphics[width=0.5\textwidth]{influencek}
   \caption{Influence du paramètre k sur l'exactitude de l'algorithme.}
   \label{fig:kNN}
 \end{figure}
@@ -221,15 +308,15 @@ Où NIR correspond à l'intensité lumineuse dans le proche infrarouge et VIS da
 
 L'un des objectifs de notre projet étant de déterminer des principes généraux pour la classification et l'exploitation des données Sentinel-2, nous avons cherché à comparer les résultats obtenus pour différents classificateurs. Nous avons d'abord cherché à comparer à l'oeil ces méthodes en cherchant des différences sur les images obtenues, comme sur la figure \ref{comparaison}.
 
-\begin{figure}
+\begin{figure}[H]
   \centering
-    \includegraphics[width=0.5\textwidth]{comparaison}
+    \includegraphics[width=0.75\textwidth]{comparaison}
   \caption{Comparaison des classifications obtenues avec différentes méthodes.}
   \label{fig:comparaison}
 \end{figure}
 Cependant, ces comparaisons à l'oeil ne permettent pas d'identifier formellement un critère meilleur que l'autre. Nous avons donc utilisé un critère numérique : l'exactitude, qui permet de quantifier la qualité de nos classifications et ainsi de les comparer. Les résutats sont résumés dans le tableau \ref{table:comp}. On peut constater que selon ces résultats, le support vecteur machine (SVM) offre les meilleurs résultats et semble donc le classificateur le plus adapté à notre problème de classification à trois classes. Il serait nécessaire de faire des tests similaires sur d'autres zones pour confirmer ou infirmer cette observvation, cependant cela sort du cadre de notre projet.
 
-\begin{table}
+\begin{table}[H]
 \begin{center}
  \begin{tabular}{|c|c|c|c|c|}
   \hline
@@ -245,18 +332,18 @@ exactitude & 78.4\% & 90.9\% & 	98.0\% & 99.1\% \\
 
 Nous avons également démontré que chacune des 12 bandes spectrales est nécessaire dans la classification, puisque la perte de l'une d'entre elles entraîne une baisse significative de l'exactitude comme on l'a vu dans le paragraphe \ref{lineaire}. Nous avons étudié l'influence de ce paramètre en étudiant l'exactitude d'un classificateur avec les 12 bandes, puis en en retirant. Les résultats obtenus sont présentés en figure \ref{fig:nBandes}.
 
-\begin{figure}
+\begin{figure}[H]
   \centering
-    \includegraphics[width=0.5\textwidth]{nBandes}
+    \includegraphics[width=0.5\textwidth]{nb_bands}
   \caption{Influence du nombre de bandes spectrales sur la qualité de classification d'une méthode des 1 plus proches voisins.}
   \label{fig:nBandes}
 \end{figure}
 
 \subsection{Limites et améliorations}
-Nous avons constaté que la boue le long des côtes n'est pas toujours reconnue de la même manière par nos algorithmes: parfois champs, parfois ville, ils ne correspondent à aucune de nos trois classes. Il est en effet rare en apprentissage automatique d'utiliser seulement trois classes. Nous avons donc rajouté une classe ``boue'' et testé certaines de nos classifications dessus, en particulier le Support Vecteur Machine. Le résultat est donné en figure \ref{fig:SVM4Cl}. La boue est bien classifiée mais l'introduction de cette 4e classe entraîne l'apparition de faux positifs, en particulier dans les champs dont la réponse spectrale est proche.
-\begin{figure}
+Nous avons constaté que la boue le long des côtes n'est pas toujours reconnue de la même manière par nos algorithmes: parfois champs, parfois ville, ils ne correspondent à aucune de nos trois classes. Il est en effet rare en apprentissage automatique d'utiliser seulement trois classes. Nous avons donc rajouté une classe ``boue'' et testé certaines de nos classifications, en particulier le Support Vecteur Machine. Le résultat est donné en figure \ref{fig:SVM4Cl}. La boue est bien classifiée mais l'introduction de cette 4e classe entraîne l'apparition de faux positifs, en particulier dans les champs dont la réponse spectrale est proche.
+\begin{figure}[H]
   \centering
-    \includegraphics[width=0.5\textwidth]{SVM4Classes}
+    \includegraphics[width=0.75\textwidth]{SVM4Classes}
   \caption{Résutat de classification de 4 classes avec le support vecteur machine.}
   \label{fig:SVM4Cl}
 \end{figure}
@@ -265,18 +352,18 @@ Plusieurs méthodes s'offrent à nous pour améliorer ce résultat de classifica
 
 Il est également possible d'ajouter encore plus d'informations, en utilisant les données de satellites Sentinel-1 qui sont des images radar. Une dernière méthode tout juste mise au point par notre tuteur N. Brodu consiste à améliorer la résolution des bandes spectrales de plus faible résolution en inférant leur valeur à partir des bandes à plus haute résolution. Ces méthodes ont prouvé leur efficacité sur les données MODIS et pourraient apporter un supplément d'information sur les données Sentinel-2 également.
 
-Enfin, les données sentinel-2 étant toutes nouvelles, peu de scènes sont à notre disposition. Nous nous sommes concentrés pendant ce projet sur une zone précise dans un but de répétabilité. Nous avons essayé de classifier des zones différentes comme présenté en figure \ref{fig:zone2},cependant ce travail n'a été qu'esquissé et sort du cadre de notre projet.
+Enfin, les données sentinel-2 étant toutes nouvelles, peu de zones géographiques sont à notre disposition. Nous nous sommes concentrés pendant ce projet sur une zone précise dans un but de répétabilité. Nous avons essayé de classifier des zones différentes comme présenté en figure \ref{fig:zone2}, cependant ce travail n'a été qu'esquissé et sort du cadre de notre projet.
 
-\begin{figure}
+\begin{figure}[H]
   \centering
     \includegraphics[width=0.7\textwidth]{zone2}
   \caption{Résutat de classification d'une autre zone en Italie du nord}
   \label{fig:zone2}
 \end{figure}
 
+Il serait également intéressant d'effectuer un suivi temporel, mais là encore la mission Sentinel-2 est trop récente et les données disponibles ne sont pas suffisantes. 
+
 
 \bibliography{Biblio}
 \bibliographystyle{plain}
 \end{document}
-
-
