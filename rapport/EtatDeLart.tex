@@ -8,7 +8,6 @@ Ce projet s'inscrit dans le cadre de notre formation ingénieur. Il s'étend sur
 
 Ce projet se situe dans un domaine particulier de l'utilisation des satellites orbitant autour de la Terre : la classification et le suivi des sols. 
 Les applications concernent aussi bien l'agriculture que la surveillance environnementale (fonte des glaces, observation des océans et des forêts) en passant par la géologie, sans oublier la cartographie.
-Les données satellties peuvent, par exemple, servir à analyser la qualité de l'air au niveau du sol et, entre autres, en déduire la présence d'évènements exceptionnels comme des feux de forêt ou du brouillard\cite{airSurv}. 
 
 De manière plus concrète, M. Brodu, notre encadrant pédagogique, a mené des projets de traitement d'image satellite pour la surveillance environnementale. Il a notamment travaillé avec l'équipe OptIC (Optimal Inference in Complex and Turbulent Data), associée à l'Inria. L'idée était de suivre l'évolution de la végétation afin de repérer les zones de sécheresse, et ainsi pouvoir mieux gérer les ressources en eau. Une classification des sols de la région autour de Roorkee (Inde) a ainsi été effectuée. 
 Cette classification a été réalisée grâce à des données d'imagerie multispectrale, qui est une technique de télédétection. C'est donc à cette technique que nous nous sommes intéressés, même s'il en existe d'autres (imagerie radar par exemple). 
@@ -16,29 +15,34 @@ Cette classification a été réalisée grâce à des données d'imagerie multis
 \subsection{Imagerie satellite multispectrale}
 
 Une image photographique couleur "classique" contient en réalité trois images : l'une dans le rouge, l'autre dans le vert et la troisième dans le bleu (RGB en anglais ou RVB en français). Elle ne contient donc que des informations dans le visible. 
-\begin{figure}
+\begin{figure}[H]
   \centering
-    \includegraphics[width=0.5\textwidth]{veniseRGB}
+    \includegraphics[width=0.75\textwidth]{veniseRGB}
   \caption{Image RGB du Nord de l'Italie (près de Venise)}
   \label{fig:veniseRGB}
 \end{figure}
 
 Une image multispectrale, quant à elle, est formée de nombreuses images prises à des longueurs d'ondes variées. Elle contient donc plus d'informations, et selon les longueurs d'ondes d'acquisition peut avoir, en plus du visible, des informations dans l'ultraviolet ou l'infrarouge.
 
-\begin{figure}
+\begin{figure}[H]
   \centering
     \includegraphics[width=0.5\textwidth]{multispectrale.png}
   \caption{Image multispectrale du Nord de l'Italie (près de Venise)}
   \label{fig:veniseMulti}
 \end{figure}
 
-A partir de ces données multispectrales, il est possible de calculer des indices comme le NDVI (normalized difference vegetation index), permettant d'établir la présence ou l'absence de végétation dans une zone. En effet, les plantes chlorophyliennes absorbent fortement la lumière rouge et réfléchissent la lumière proche infrarouge : la différence normalisée d'intensité entre ces deux bandes correspond à l'indice NDVI. Une valeur proche de 1 indique la présence de végétation, et une valeur proche de 0 son absence. L'utilisation de cet indice est très courante, pour l'étude de la désertification de zones dues à l'activité humaine\cite{desert} par exemple.
-
 Parmi les satellites utilisant cette technologie on trouve les satellites Aqua et Terra MODIS (Moderate-Resolution Imaging SpectroRadiometer). Ces deux satellites, lancés par la NASA en 1999 et 2002, imagent l'intégralité de la surface de la Terre tous les deux jours. Les données sont ensuite traitées et mises à disposition du public gratuitement, ce qui en a fait une des principales sources d'images satellites multispectrales. Ces satellites sont capables de mesurer 36 bandes fréquentielles avec trois résolutions différentes : 250m, 500m et 1000m par pixel\cite{nasa}. L'objectif de cette mission est de "jouer un rôle vital dans le développement de modèles globaux, validés et interactifs de systèmes terrestres capables de prévoir des changements globaux avec suffisamment de précision pour aider les décideurs politiques à prendre des décisions avisées concernant la protection de notre environnement."
 
 La faible résolution des données MODIS ne permet en revanche pas de discerner des détails comme des cours d'eau ou des habitations, et des données plus précises sont donc nécessaires pour obtenir de meilleures classifications. 
 
 Dans le cadre du projet \textit{Copernicus} d'observation de la Terre, l'agence spatiale européenne (ESA) développe en ce moment les missions Sentinel. Chacune de ces missions consiste en une paire de satellites en orbite autour de notre planète, récoltant des données sur la surface et l'atmosphère. Ainsi, les satellites Sentinel 2 (Sentinel 2-A lancé le 23 juin 2015 et 2-B dont le lancement est prévu pour la seconde moitié de 2016)\cite{sent2} récoltent des données multispectrales sur 13 bandes de fréquence : 4 bandes avec une résolution de 10m/pixel, 6 bandes à 20m/pixel et 3 à 60m/pixel.
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=0.75\textwidth]{SentinelVsModis.png}
+  \caption{Comparaison d'une image Sentinel 2 (à g.) avec une image MODIS (à d.), en RGB}
+  \label{fig:ml}
+\end{figure}
 
 Les résolutions de ces images satellites sont donc grandement meilleures que celles acquises par satellites MODIS. Leur mise à disposition du public étant elle aussi gratuite, on comprend leur intérêt. 
 Néanmoins, la mission de l'Esa est récente : peu de données sont actuellement disponibles. La courverture temporelle, c'est-à-dire la fréquence à laquelle le satellite passe au-dessus d'une même zone, est également assez faible. Un seul des deux satellites ayant été lancé, le renouvellement des données se fait de manière hebdomadaire, alors que les satellites MODIS renouvellent les données deux fois par jour. 
@@ -68,22 +72,36 @@ Les algorithmes binaires, quant à eux, demandent un peu plus de travail. Dès q
    \item[>] La première approche s'appelle "un contre tous", elle consiste ,comme son nom l'indique, à prendre chaque classe et à l'opposer à l'ensemble des autres classes. On obtient alors n problèmes binaires et pour un élément à classifier, en cas d'ambiguïté, la classe qui obtient le plus de "votes" favorables est choisie.
    \item[>] La seconde méthode est le "un contre un", toutes les classes sont "opposées" successivement, deux à deux, et de la même façon c'est la classe qui obtient le plus de "votes" favorables qui est choisie. La principale différence réside dans le fait qu'il y ait dans ce cas ${n \choose 2}=\frac{n(n-1)}{2}$ entraînements à réaliser.
  \end{itemize}
-%parler de la logique entrainement/test
-\subsection{L'évaluation}
-\paragraph{La matrice de confusion\newline}
-La matrice de confusion est le principal outil de mesure de la qualité d'une classification. Pour la construire, il faut, dans un premier temps fournir un ensemble de données, dont on connaît déjà la classe, et dont on va classifier les éléments à l'aide de notre algorithme. La matrice de confusion va alors servir à synthétiser toutes les informations que l'on peut en tirer en comparant pour chaque vecteur la classe théorique (celle que l'on connaissait au préalable) et le résultat de la classification.\ref{ConfMat}
+
+\paragraph{L'évaluation\newline}
+Pour évaluer la qualité des résultats donnés par ces algorithmes, on procède à une phase d'entraînement suivie d'une phase de test. 
+On utilise pour cela un ensemble dont on connaît les classes. On va alors diviser cet ensemble en deux sous-ensembles. Le premier sous-ensemble contiendra à la fois les caractéristiques des points et leurs classes respectives. Il servira à entraîner l'algorithme. Celui-ci va ainsi apprendre quelles sont les caractéristiques de chaque classe. Le deuxième sous-ensemble contiendra uniquement les caractéristiques des points. On pourra ensuite comparer les classes inférées par l'algorithme aux classes attendues. On pourra alors quantifier la qualité des résultats à l'aide de la matrice de confusion correspondante. 
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=0.75\textwidth]{mlProcess.png}
+  \caption{Machine Learning}
+  \label{fig:ml}
+\end{figure}
+
+\subparagraph{La matrice de confusion\newline}
+La matrice de confusion est le principal outil de mesure de la qualité d'une classification. Elle compare en effet la classification prédite par l'algorithme (en lignes) à la classification réelle (en colonnes). \ref{ConfMat}
+La diagonale représente le nombre d'éléments bien classés. 
+Plusieurs critères sont issus de cette matrice, sous forme de pourcentage. Deux critères sont donnés par classe : la précision (precision) et le rappel (recall). La précision est la quantité d'éléments bien classés, sur le nombre d'éléments réels de cette classe. Le rappel est la quantité d'éléments bien classés, sur le nombre d'éléments prédits par l'algorithme dans cette classe.
+Un autre critère est donné de manière global : l'exactitude (accuracy en anglais), qui est la trace de la matrice sur le nombre total d'éléments. Autrement dit, l'exactitude est le pourcentage de données bien classées. C'est principalement ce critère qu'on retiendra.
+
 \input{MatriceConfusion}
-\paragraph{La validation croisée\newline}
-Il s'agit d'une technique d'évaluation de la classification qui va nous permettre de maximiser la taille des polygones d'entraînement et de test. En effet, cette technique consiste à n'avoir qu'un seul jeu de polygones qui seront utilisés intégralement pour le test et pour l'entraînement. L'astuce réside ici à utiliser une partie des éléments du polygone pour l'entraînement et le reste pour le test, puis de réitérer en changeant les éléments utilisés pour le test et ainsi de suite jusqu'à ce que tous les éléments aient été utilisé pour le test.
-\input{CrossVal}
+
 
 \subsection{Motivation du projet et cahier des charges}
 
 Les données Sentinel 2 étant très récentes, nous faisons partie des premiers à les analyser et aucun article à leur sujet n'a encore été publié. Leur analyse et leur classification relève donc de la recherche. 
 Bien que ce projet s'étende sur une durée assez courte (6 semaines), les objectifs fixés étaient :
-  - Définir les principaux intérêts des images multispectrales Sentinel 2
-  - Etablir une classification de la surface terrestre (suivi d'occupation des sols) en trois classes ("Eau", "Urbain","Champ") à partir d'une image de la base de données Sentinel 2
-  - Tester les algorithmes de Machine Learning les plus répandus
-  
+\begin{itemize}
+  \item[>] Définir les principaux intérêts des images multispectrales Sentinel 2.
+  \item[>] Etablir une classification de la surface terrestre (suivi d'occupation des sols) en trois classes ("Eau", "Urbain","Champ") à partir d'une image de la base de données Sentinel 2.
+  \item[>] Tester les algorithmes de Machine Learning les plus répandus.
+\end{itemize}
+
   Dans un but de répétabilité, nous avons testé et optimisé toutes nos méthodes de machine learning sur une unique image hyperspectrale (dont une vue en RGB est donnée en figure \ref{fig:veniseRGB}).
  
