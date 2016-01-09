@@ -24,7 +24,7 @@
 Les données multispectrales des satellites MODIS sont largement utilisées par la communauté scientifique. Ici on présentera trois publications qui utilisent différentes approches de la surveillance satellite.
 
 \paragraph{}
-L'analyse des données multispectrales peut se faire en calculant des indices particuliers, comme le NDVI (normalized difference vegetation index). Le NDVI permet d'établir la présence ou l'absence de végétation dans une zone. En effet, les plantes chlorophyliennes absorbent fortement la lumière rouge et réfléchissent la lumière proche infrarouge : la différence normalisée d'intensité entre ces deux bandes correspond à l'indice NDVI. 
+L'analyse des données multispectrales peut se faire en calculant des indices particuliers, comme le NDVI (normalized difference vegetation index). Le NDVI permet d'établir la présence ou l'absence de végétation dans une zone. En effet, les plantes chlorophylliennes absorbent fortement la lumière rouge et réfléchissent la lumière proche infrarouge : la différence normalisée d'intensité entre ces deux bandes correspond à l'indice NDVI. 
 \begin{equation}
 NDVI=\frac{NIR-VIS}{NIR+VIS}
 \end{equation}
@@ -64,7 +64,7 @@ Nous allons ici présenter quelques logiciels qui permettent de faire de la surv
 \paragraph{}
 QGIS est un logiciel libre multiplateforme, qui permet de traiter les formats usuels d'image satellite, mais aussi d'y ajouter des couches vectorielles pour délimiter des polygones ou classifier des zones géographiques.
 De plus, la communauté de QGIS a développé de nombreux "plugins" (modules d'extension) permettant d'appliquer différents algorithmes de machine learning.\newline
-Le logiciel SAGA, intégré à QGIS, utilise l'algorithme de ressemblance maximale, qui permet de faire une classification statistique des pixels. Ayant choisi des polygones d’entraînement, ils vont être assimilés à des lois normales et à partir de leurs moyennes et de leurs variances, les pixel inconnus vont appartenir à la classe à laquelle ils ont le plus de chance d'appartenir.
+Le logiciel SAGA, intégré à QGIS, utilise l'algorithme de ressemblance maximale, qui permet de faire une classification statistique des pixels. Ayant choisi des polygones d'entraînement, ils vont être assimilés à des lois normales et à partir de leurs moyennes et de leurs variances, les pixel inconnus vont appartenir à la classe à laquelle ils ont le plus de chance d'appartenir.
 Semi-Automatic Classification Plugin, permet également d'obtenir des classifications à partir d'image à l'aide de différents algorithmes.
 OrfeoToolBox est un autre logiciel qui a la possibilité d'être utilisé via Qgis et qui peut réaliser une classification d'images satellite.
 
@@ -75,9 +75,48 @@ ENVI ({\href{http://www.exelisvis.fr/ProduitsetServices/LesproduitsENVI/ENVI.asp
 \paragraph{}
 Parmi les logiciels payant sous licence propriétaire, on peut aussi noter ArcGIS, développé par la société Esri (Environmental Systems Research Institute, Inc.). Il contient également une boîte à outil de traitement des images géographiques relativement complète.
 
+\section{Méthode et organisation}
+\subsection{Processus}
+\paragraph{}
+L'objectif de ce projet était de classifier une zone géographique à partir des images satellites fournies par Sentinel-2. Par souci de lisibilité, nous avons choisi de présenter les résultats sous la forme d'images RGB composées d'autant de teintes qu'on a choisi de classes (par exemple pour une classification tri-classes, l'image finale a trois teintes : rouge, verte et bleue).
+\paragraph{}
+Afin d'arriver à ce résultat, il a fallu traiter les données fournies par l'ESA. Celles-là ont donc subi un processus résumé ci-dessous et expliqué après : \\\\
+\includegraphics[scale=0.3]{process_Multispec.pdf}
+\subsubsection{SNAP}
+\paragraph{}
+SNAP\footnote{\href{http://step.esa.int/main/toolboxes/snap/}{SNAP | STEP}} (ou Sentinel Application Platform) est un logiciel open-source et gratuit développé par l'Agence Spatiale Européenne (ESA). Il est le seul capable d'ouvrir les données de Sentinel-2 et d'afficher les différentes bandes de l'image multispectrale. Pour pouvoir manipuler simplement l'image (l'originale étant très volumineuse et dans un format complexe et inadapté), nous avons donc sélectionné une sous-image que nous avons exportée au format GéoTIFF.
+\subsubsection{QGIS}
+\paragraph{}
+QGIS\footnote{\href{http://www.qgis.org}{Site Officiel de QGIS}} est un logiciel de cartographie libre publié sous licence GPL. Afin de pouvoir utiliser les algorithmes d'apprentissage automatique, nous avons besoin de sélectionner des pixels dont on connaît par avance la classe (urbain, champ ou eau). Sous QGIS, nous avons donc tracé des polygones autour de zones ne contenant qu'un seul type de classe : des polygones autour d'une région ne contenant que de l'eau, puis que des champs, puis que de la ville. Nous avons ensuite exporté les coordonnées de ces polygones.
+\subsubsection{Script Python}
+\paragraph{}
+Comme il a été précédemment écrit, pour pouvoir utiliser les algorithmes d'apprentissage automatique, il faut choisir sur l'image des pixels dont on connaît par avance la classe. Nous avons donc écrit un script sous Python en utilisant l'image sélectionnée et les coordonnées des polygones sélectionnés auparavant. Nous avons extrait les valeurs des 13 bandes de tous les pixels contenus à l'intérieur des polygones. Ces "pixels" de 13 bandes formeront les vecteurs d'entraînement de nos algorithmes d'apprentissage automatique. On enregistre alors trois listes de pixels sous format texte : une liste des pixels "urbain", une autre contenant les pixels "champs" et enfin une dernière liste avec les pixels "eau".
+\subsubsection{Sk-learn, dlib et PRT}
+\paragraph{}
+Sk-learn\footnote{\href{http://scikit-learn.org}{scikit-learn.org}}, dlib\footnote{\href{http://dlib.net}{dlib.net}} et PRT\footnote{\href{https://github.com/covartech/PRT}{github.com/covartech/PRT}} sont trois bibliothèques permettant d'utiliser des algorithmes d'apprentissage automatique. Elles sont respectivement publiées sous Licence BSD, Licence Logicielle Boost et Licence MIT, toutes trois des licences de logiciel libre. Toutes les trois sont écrites dans un langage différent, respectivement Python, C++ et MatLab. L'idée était de tester les différentes implémentations, de comparer leur rapidité et leur facilité d'utilisation. Nous avons utilisé quatre algorithmes classiques pour la classification : la méthode aux moindres carrés, celle des K-Nearest Neighbors, l'Analyse Discriminante Linéaire et des Machines à Vecteur de Support. Les résultats seront exposés et comparés plus loin dans le rapport. Nous avons donc utilisé différents algorithmes sous différentes implémentations sur notre image. Finalement, nous avons créé une image RGB avec en rouge les zones urbaines, en vert les zones agricoles et en bleu l'eau. Associé à cette image, nous avons aussi calculé une matrice de confusion, outil mathématique permettant d'évaluer rapidement et finement la qualité de la classification opérée par un des algorithmes d'apprentissage automatique.
+\subsection{Organisation du projet}
+\subsubsection{Répartition du travail}
+\paragraph{}
+Dans un premier temps, il a fallu tous nous familiariser avec les notions d'apprentissage automatique et avec les différents logiciels à utiliser. Nous avons donc tous les quatre travaillé en commun. Chacun a donc appris à utiliser SNAP, puis QGIS. Quand nous avons commencé à mieux comprendre le projet et à être plus à l'aise, nous nous sommes partagés les tâches.
+\paragraph{}
+Pendant que Youna, Aurélien et Pierre continuaient de se documenter sur l'apprentissage automatique, Benjamin travaillait sur le script Python permettant l'extraction des pixels "intéressants". C'est donc Benjamin qui a codé ce bloc. Une fois cette partie terminée, à l'aide des pixels extraits, nous avons tous pu commencer à implémenter les algorithmes d'apprentissage automatique. Chacun a choisi un langage différent : Benjamin a choisi le C++, Aurélien le Python, Youna et Pierre le langage MatLab. Nous avons tous codé de a à z la méthode des moindres carrés car celle-ci est la méthode la plus simple et qu'elle permet de comprendre tout le principe de la classification. Cette première méthode a donc eu un intérêt pédagogique.
+\paragraph{}
+C'est à partir de ce moment que nous avons commencé à paralléliser les tâches : chacun a implémenté les algorithmes d'apprentissage automatique avec différents langages et différentes bibliothèques : Benjamin a utilisé dlib sous C++, Aurélien sk-learn sous Python, Youna ANN (Approximate Nearest Neighbors, publiée sous Licence LGPL) sous C++ pour coder la méthode des k plus proches voisins et Pierre a utilisé PRT sous MatLab.
+\subsubsection{Mise en commun du travail}
+\paragraph{}
+Afin d'organiser au mieux le code que nous avons écrit, nous avons utilisé Git. Cela nous a permis de partager nos différents codes ainsi que nos différents résultats. Par ailleurs, nous avons choisi d'écrire notre rapport sous LaTeX. Git s'est donc aussi révélé très utile quand il s'est agi de mettre en commun les contributions de chacun dans la rédaction. À ce propos, nous avons décidé de nommer un coordinateur pour la rédaction du rapport : Pierre et un autre coordinateur pour la soutenance : Youna.
+\subsubsection{Rencontres avec le tuteur}
+\paragraph{}
+Le projet s'est intégralement structuré autour de réunions hebdomadaires avec notre tuteur Nicolas Brodu. Ces réunions avaient à la fois pour but de rapporter les progrès que nous avions faits mais aussi de nous apprendre les bases de Machine Learning. Ces réunions ont donc été capitales dont la compréhension du sujet et donc dans l'avancement du projet. Le projet ayant duré 6 semaines, nous avons fait 6 réunions. Voici donc l'historique des réunions et les points abordés.
+\paragraph{04/11 :} Dans un premier temps, Nicolas Brodu nous a exposé ce sur quoi il travaillait, il a aussi dressé un court état de l'art de la classification des sols. Il nous a ensuite proposé plusieurs sujets portant sur ce domaine et nous avons alors choisi de développer l'aspect Apprentissage Automatique avec pour objet les images multispectrales de Sentinel-2. Une fois ce choix fait, nous avons établi avec lui un cahier des charges.
+\paragraph{10/11 :} L'enjeu de la première semaine était de se familiariser avec les images multispectrales, d'apprendre à se servir de SNAP (ouvrir une image, extraire une sous-image et l'exporter au bon format) de QGIS (ouvrir la sous image, tracer et extraire des polygones autour de zones d'intérêt). C'est aussi au cours de cette semaine que nous avons commencé à coder le script Python pour extraire les valeurs des pixels contenus dans les zones d'intérêt. Nous avons donc rapporté à notre tuteur notre avancement et nos difficultés quant à l'écriture du script. M. Brodu a également profité de cette réunion pour nous apprendre les principes de l'apprentissage automatique et plus particulièrement du  Machine Learning  linéaire (notamment la classification aux moindres carrés).
+\paragraph{18/11 :} C'est à partir de cette réunion que nous avons pu montrer les premiers résultats de classification à notre tuteur. Nous avons également pu montrer que la bande 10 était inutilisable sur l'image que nous avions prise pour travailler et que les 12 autres bandes étaient nécessaires (en enlevant une ou plusieurs bandes la précision se dégradait rapidement à l'œil nu). M. Brodu nous alors introduit la matrice de confusion, outil permettant d'évaluer quantitativement la justesse de classification. Il a également exposé d'autres algorithmes d'apprentissage automatique : la LDA\footnote{\href{https://en.wikipedia.org/wiki/Linear_discriminant_analysis}{Linear Discriminant Analysis}} (Analyse discriminante linéaire) et la PCA\footnote{\href{https://en.wikipedia.org/wiki/Principal_component_analysis}{Principal Component Analysis}} (Analyse en Composantes Principales). Face au temps qu'il nous restait, il était exclu d'implémenter nous même chaque algorithme d'apprentissage automatique. C'est pourquoi nous avons utilisé des bibliothèques contenant déjà les algorithmes. Notre tuteur nous a suggéré plusieurs bibliothèques, toutes sous licences libres. À propos de MatLab, c'est effectivement un logiciel payant et non libre. Nous avons malgré tout continué à l'utiliser en sachant que s'il fallait passer à une alternative libre, nous pourrions toujours utiliser Octave\footnote{\href{https://www.gnu.org/software/octave/}{GNU Octave}}, qui a l'avantage d'avoir presque la même syntaxe que MatLab.
+\paragraph{25/11 :} Nous avons eu peu de nouveaux résultats à rapporter cette semaine : nous nous sommes concentrés sur l'apprentissage des méthodes des différentes bibliothèques. Nous avons quand même pu confirmer grâce à l'utilisation de la matrice de confusion que la méthode des moindres carrés fonctionnait surprenamment bien pour une méthode aussi simpliste. Si la méthode la plus basique de classification fonctionne aussi bien, quelle précision pouvons nous espérer avec des méthodes plus complexes ? Nous avons voulu apporter une réponse à cette question et c'est pourquoi M. Brodu nous a expliqué les principe du Machine Learning non linéaire en commençant par développer deux méthodes : les SVM\footnote{\href{https://en.wikipedia.org/wiki/Support_vector_machine}{Support Vector Machine}} (Machines à Vecteurs de Support) et la méthode des KNN\footnote{\href{https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm}{K-Nearest Neighbors}} (K plus Proches Voisins). Ces algorithmes ont la particularité de contenir des méta-paramètres (par exemple K pour les KNN), qu'il faut bien choisir. Notre tuteur nous a donc donné la méthode classique pour les choisir : faire de la validation croisée.
+\paragraph{09/12 :} Cette réunion a été la dernière où nous avons pu exposer nos résultats. Nous avons exposé tout ce que nous avions fait et le reste de la réunion a porté sur les possibles ouvertures du projet : Faire du blanchiment (pour attribuer le même poids aux différentes bandes dans la classification), utiliser des algorithmes de super-résolution, utiliser les bandes radar de Sentinel-1, utiliser d'autres indicateurs. M. Brodu a ainsi évoqué la Malédiction de la dimensionalité (utiliser toujours plus d'indicateurs peut dégrader des résultats si l'on ne fait pas attention).
+\paragraph{16/12 :}Cette dernière réunion a constitué en une soutenance blanche, nous avons fait une première présentation à notre tuteur et celui-ci nous a aidé à l'améliorer et à mieux expliquer l'apprentissage automatique à des personnes ne connaissant pas ce domaine.
 
 \section{Résultats}
-Le résultat d'une classification est une image RGB dont la couleur de chaque pixel représente la classe à laquelle il appartient selon l'algorithme. Par exemple, dans une image résultat, un pixel bleu correspond à un point indentifé par l'algorithme comme étant de l'eau. Notre code couleur est résumé dans le tableau \ref{table:codeCouleur}.
+Le résultat d'une classification est une image RGB dont la couleur de chaque pixel représente la classe à laquelle il appartient selon l'algorithme. Par exemple, dans une image résultat, un pixel bleu correspond à un point identifié par l'algorithme comme étant de l'eau. Notre code couleur est résumé dans le tableau \ref{table:codeCouleur}.
 \begin{figure}[H]
  \begin{center}
   \begin{tabular}{|c|c|}
@@ -94,7 +133,7 @@ Le résultat d'une classification est une image RGB dont la couleur de chaque pi
 \caption{Code couleur des images produites par machine learning.} 
 \end{center}
 \end{figure}
-Estimer la qualité d'un classificateur revient à estimer la qualité de l'image résultante. Pour cela, deux méthodes s'offrent à nous: la première numérique, consiste à calculer la matrice de confusion de chaque classificateur comme expliqué INSERER ICI OU CEST EXPLIQUE. Pour plus de clarté, l'exactitude sera en rouge. L'autre méthode consiste à estimer à l'oeil la correspondance entre les prédictions de nos algorithmes et la réalité (les zones de référence étant elles-mêmes choisies à l'oeil, ce critère n'est pas plus mauvais que l'autre). Pour immédiatement visualiser cette correspondance, nous superposons l'image de base avec l'image résultante en transparence, comme par exemple sur la figure \ref{fig:veniseLSE}.
+Estimer la qualité d'un classificateur revient à estimer la qualité de l'image résultante. Pour cela, deux méthodes s'offrent à nous: la première numérique, consiste à calculer la matrice de confusion de chaque classificateur comme expliqué INSERER ICI OU CEST EXPLIQUE. Pour plus de clarté, l'exactitude sera en rouge. L'autre méthode consiste à estimer à l'œil la correspondance entre les prédictions de nos algorithmes et la réalité (les zones de référence étant elles-mêmes choisies à l'œil, ce critère n'est pas plus mauvais que l'autre). Pour immédiatement visualiser cette correspondance, nous superposons l'image de base avec l'image résultante en transparence, comme par exemple sur la figure \ref{fig:veniseLSE}.
 
  \subsection{Les classifications linéaires}
  
@@ -126,7 +165,7 @@ Il existe plusieurs méthodes pour trouver une droite qui sépare correctement l
 \begin{figure}[H]
   \centering
     \includegraphics[width=0.75\textwidth]{veniseLSE}
-  \caption{Résutat de classification avec un classificateur linéaire}
+  \caption{Résultat de classification avec un classificateur linéaire}
   \label{fig:veniseLSE}
 \end{figure}
 
@@ -147,7 +186,7 @@ Précision & 99.9\%  & 78.9\% & 99.9\% & {\color{red}90.9\%} \\
 \label{table:confLSE}
 \end{figure}
 
-L'exactitude de cette méthode est de 90.9\%. On peut constater que l'eau est très bien classifiée, et que les erreurs proviennent majoritairement de confusions entre les champs et la ville. Il est également intéressant de voir que cette confusion n'est pas symmétrique : si lez zones urbaines sont classifiées comme des champs par l'algorithme, l'inverse est beaucoup moins vrai.
+L'exactitude de cette méthode est de 90.9\%. On peut constater que l'eau est très bien classifiée, et que les erreurs proviennent majoritairement de confusions entre les champs et la ville. Il est également intéressant de voir que cette confusion n'est pas symétrique : si lez zones urbaines sont classifiées comme des champs par l'algorithme, l'inverse est beaucoup moins vrai.
 
 \paragraph{Analyse discriminante linéaire ou de Fisher}
   Une seconde méthode consiste à utiliser l'analyse discriminante linéaire\footnote{ou analyse discriminante de Fisher}(LDA), c'est-à-dire poser l'hypothèse que chaque ensemble de points a une distribution gaussienne, et à trouver, à partir de la variance et de la moyenne de ces distributions la meilleure séparation entre les ensembles. On peut voir cette méthode comme une recherche de droite sur laquelle la projection des gaussiennes est la mieux séparé, la meilleure séparation est alors l'hyperplan perpendiculaire à cette droite. Cependant, dans la pratique, l'hypothèse de distribution gaussienne est très forte et rarement vérifiée.
@@ -164,7 +203,7 @@ L'exactitude de cette méthode est de 90.9\%. On peut constater que l'eau est tr
 \begin{figure}[H]
   \centering
     \includegraphics[width=0.75\textwidth]{venise+LDA}
-  \caption{Résutat de classification avec une analyse linéaire de discriminant}
+  \caption{Résultat de classification avec une analyse linéaire de discriminant}
   \label{fig:veniseLDA}
 \end{figure}
 
@@ -209,13 +248,13 @@ Les SVM ont été développées dans les années 1990 d'après les travaux de Vl
   \label{fig:ml_svm}
 \end{figure}
 
-Pour augmenter la précision de la classification, il est intéressant de trouver une frontière non-linéaire. Pour ce faire, on utilise l'astuce du noyau (ou kernel trick). Le \textit{kernel trick}\cite{aizermanSVM} consiste à remplacer le produit scalaire de l'espace considéré par l'évaluation d'une fonction (appelée noyau), on peut ramener l'étude d'un problème non séparable linéairement, à un problème linéaire. La classification admet alors des méta-paramètres, qui devront être fixés par l'utilisateur avant de réaliser l'entraînement. Afin d'optimiser l'apprentissage et la classification de notre image, il faut trouver les métaparamètres idéaux. Pour cela, on utilise une méthode d'évaluation dite validation croisée.
+Pour augmenter la précision de la classification, il est intéressant de trouver une frontière non-linéaire. Pour ce faire, on utilise l'astuce du noyau (ou kernel trick). Le \textit{kernel trick}\cite{aizermanSVM} consiste à remplacer le produit scalaire de l'espace considéré par l'évaluation d'une fonction (appelée noyau), on peut ramener l'étude d'un problème non séparable linéairement, à un problème linéaire. La classification admet alors des méta-paramètres, qui devront être fixés par l'utilisateur avant de réaliser l'entraînement. Afin d'optimiser l'apprentissage et la classification de notre image, il faut trouver les méta-paramètres idéaux. Pour cela, on utilise une méthode d'évaluation dite validation croisée.
 
 \subparagraph{La validation croisée\newline}
 Il s'agit d'une technique d'évaluation de la classification qui va nous permettre de maximiser la taille des polygones d'entraînement et de test. En effet, cette technique consiste à n'avoir qu'un seul jeu de polygones qui seront utilisés intégralement pour le test et pour l'entraînement. L'astuce réside ici à utiliser une partie des éléments du polygone pour l'entraînement et le reste pour le test, puis de réitérer en changeant les éléments utilisés pour le test et ainsi de suite jusqu'à ce que tous les éléments aient été utilisé pour le test.
 \input{CrossVal}
 
-Dans notre cas, on utilise deux métaparamètres : C et $\gamma$. on sépare notre jeu de données en 5, 4 parts servant à l'apprentissage et la dernière part au test. On fait ce test 100 fois pour 100 couples de valeurs (C,$\gamma$), et le jeu de paramètres obtenant le meilleur score de précision lors de la validation croisée correspondaux paramètres que l'on utilisera. Afin de déterminer visuellement si l'on a trouvé un set de paramètres optimal, on représente les résultats des différentes validations croisées sur une courbe en deux dimensions (figure \ref{fig:crossMap}).
+Dans notre cas, on utilise deux méta-paramètres : C et $\gamma$. on sépare notre jeu de données en 5, 4 parts servant à l'apprentissage et la dernière part au test. On fait ce test 100 fois pour 100 couples de valeurs (C,$\gamma$), et le jeu de paramètres obtenant le meilleur score de précision lors de la validation croisée correspond aux paramètres que l'on utilisera. Afin de déterminer visuellement si l'on a trouvé un set de paramètres optimal, on représente les résultats des différentes validations croisées sur une courbe en deux dimensions (figure \ref{fig:crossMap}).
 
 \begin{figure}[H]
   \centering
@@ -224,7 +263,7 @@ Dans notre cas, on utilise deux métaparamètres : C et $\gamma$. on sépare not
   \label{fig:crossMap}
 \end{figure}
 
-Cette figure montre qu'en effet, la précision de l'algorithme dépend du choix judicieux des métaparamètres. Le meilleur choix de métaparamètres dans notre cas est le couple (C,$\gamma$)=(1,$ 10^{-3}$). Nous obtenons alors l'image \ref{fig:veniseSVM} et la matrice de confusion \ref{table:SVC}.
+Cette figure montre qu'en effet, la précision de l'algorithme dépend du choix judicieux des méta-paramètres. Le meilleur choix de méta-paramètres dans notre cas est le couple (C,$\gamma$)=(1,$ 10^{-3}$). Nous obtenons alors l'image \ref{fig:veniseSVM} et la matrice de confusion \ref{table:SVC}.
 
 \begin{table}[H]
 \begin{center}
@@ -246,7 +285,7 @@ Précision & 100\% & 97.6\% & 99.9\% & {\color{red}99.1\%} \\
 \begin{figure}[H]
   \centering
     \includegraphics[width=0.75\textwidth]{veniseSVM}
-  \caption{Résutat de classification avec le support vecteur machine.}
+  \caption{Résultat de classification avec le support vecteur machine.}
   \label{fig:veniseSVM}
 \end{figure}
 
@@ -286,7 +325,7 @@ Précision & 100\% & 94.8\% & 99.2\% & {\color{red}98.0\%} \\
 \begin{figure}[H]
   \centering
     \includegraphics[width=0.75\textwidth]{resultat1NN}
-  \caption{Résutat de classification avec la méthode du 1-plus proche voisin}
+  \caption{Résultat de classification avec la méthode du 1-plus proche voisin}
   \label{fig:1NN}
 \end{figure}
 
@@ -306,7 +345,7 @@ NDVI=\frac{NIR-VIS}{NIR+VIS}
 \end{equation}
 Où NIR correspond à l'intensité lumineuse dans le proche infrarouge et VIS dans le rouge. Une valeur de cet indice proche de 1 indique la présence de végétation, une valeur négative indique des nages ou l'absence de végétation. Dans notre cas, les images multispectrales fournissent suffisamment d'informations par elles-mêmes pour classifier les sols avec précision sans passer par cet indice.
 
-L'un des objectifs de notre projet étant de déterminer des principes généraux pour la classification et l'exploitation des données Sentinel-2, nous avons cherché à comparer les résultats obtenus pour différents classificateurs. Nous avons d'abord cherché à comparer à l'oeil ces méthodes en cherchant des différences sur les images obtenues, comme sur la figure \ref{comparaison}.
+L'un des objectifs de notre projet étant de déterminer des principes généraux pour la classification et l'exploitation des données Sentinel-2, nous avons cherché à comparer les résultats obtenus pour différents classificateurs. Nous avons d'abord cherché à comparer à l'œil ces méthodes en cherchant des différences sur les images obtenues, comme sur la figure \ref{comparaison}.
 
 \begin{figure}[H]
   \centering
@@ -314,7 +353,7 @@ L'un des objectifs de notre projet étant de déterminer des principes générau
   \caption{Comparaison des classifications obtenues avec différentes méthodes.}
   \label{fig:comparaison}
 \end{figure}
-Cependant, ces comparaisons à l'oeil ne permettent pas d'identifier formellement un critère meilleur que l'autre. Nous avons donc utilisé un critère numérique : l'exactitude, qui permet de quantifier la qualité de nos classifications et ainsi de les comparer. Les résutats sont résumés dans le tableau \ref{table:comp}. On peut constater que selon ces résultats, le support vecteur machine (SVM) offre les meilleurs résultats et semble donc le classificateur le plus adapté à notre problème de classification à trois classes. Il serait nécessaire de faire des tests similaires sur d'autres zones pour confirmer ou infirmer cette observvation, cependant cela sort du cadre de notre projet.
+Cependant, ces comparaisons à l'œil ne permettent pas d'identifier formellement un critère meilleur que l'autre. Nous avons donc utilisé un critère numérique : l'exactitude, qui permet de quantifier la qualité de nos classifications et ainsi de les comparer. Les résultats sont résumés dans le tableau \ref{table:comp}. On peut constater que selon ces résultats, le support vecteur machine (SVM) offre les meilleurs résultats et semble donc le classificateur le plus adapté à notre problème de classification à trois classes. Il serait nécessaire de faire des tests similaires sur d'autres zones pour confirmer ou infirmer cette observation, cependant cela sort du cadre de notre projet.
 
 \begin{table}[H]
 \begin{center}
@@ -344,7 +383,7 @@ Nous avons constaté que la boue le long des côtes n'est pas toujours reconnue 
 \begin{figure}[H]
   \centering
     \includegraphics[width=0.75\textwidth]{SVM4Classes}
-  \caption{Résutat de classification de 4 classes avec le support vecteur machine.}
+  \caption{Résultat de classification de 4 classes avec le support vecteur machine.}
   \label{fig:SVM4Cl}
 \end{figure}
 
@@ -352,12 +391,12 @@ Plusieurs méthodes s'offrent à nous pour améliorer ce résultat de classifica
 
 Il est également possible d'ajouter encore plus d'informations, en utilisant les données de satellites Sentinel-1 qui sont des images radar. Une dernière méthode tout juste mise au point par notre tuteur N. Brodu consiste à améliorer la résolution des bandes spectrales de plus faible résolution en inférant leur valeur à partir des bandes à plus haute résolution. Ces méthodes ont prouvé leur efficacité sur les données MODIS et pourraient apporter un supplément d'information sur les données Sentinel-2 également.
 
-Enfin, les données sentinel-2 étant toutes nouvelles, peu de zones géographiques sont à notre disposition. Nous nous sommes concentrés pendant ce projet sur une zone précise dans un but de répétabilité. Nous avons essayé de classifier des zones différentes comme présenté en figure \ref{fig:zone2}, cependant ce travail n'a été qu'esquissé et sort du cadre de notre projet.
+Enfin, les données Sentinel-2 étant toutes nouvelles, peu de zones géographiques sont à notre disposition. Nous nous sommes concentrés pendant ce projet sur une zone précise dans un but de répétabilité. Nous avons essayé de classifier des zones différentes comme présenté en figure \ref{fig:zone2}, cependant ce travail n'a été qu'esquissé et sort du cadre de notre projet.
 
 \begin{figure}[H]
   \centering
     \includegraphics[width=0.7\textwidth]{zone2}
-  \caption{Résutat de classification d'une autre zone en Italie du nord}
+  \caption{Résultat de classification d'une autre zone en Italie du nord}
   \label{fig:zone2}
 \end{figure}
 

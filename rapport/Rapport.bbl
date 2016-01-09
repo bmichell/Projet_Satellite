@@ -1,0 +1,35 @@
+\begin{thebibliography}{1}
+
+\bibitem{sent2}
+European~Space Agency.
+\newblock
+  \url{http://www.esa.int/Our\_Activities/Observing\_the\_Earth/Copernicus/Sentinel-2/Introducing\_Sentinel-2}.
+\newblock Consulted: 8/12/2015.
+
+\bibitem{aizermanSVM}
+A~Aizerman, Emmanuel~M Braverman, and LI~Rozoner.
+\newblock Theoretical foundations of the potential function method in pattern
+  recognition learning.
+\newblock {\em Automation and remote control}, 25:821--837, 1964.
+
+\bibitem{airSurv}
+Jill~A. Engel-Cox, Christopher~H. Holloman, Basil~W. Coutant, and Raymond~M.
+  Hoff.
+\newblock {Qualitative and quantitative evaluation of MODIS satellite sensor
+  data for regional and urban scale air quality}.
+\newblock {\em Atmospheric Environment}, 38(16):2495--2509, 2004.
+
+\bibitem{desert}
+Meng~Lung Lin, Cheng~Wu Chen, Qiu~Bing Wang, Yu~Cao, Jyh~Yi Shih, Yung~Tan Lee,
+  Chen~Yuan Chen, and Shin Wang.
+\newblock {Fuzzy model based assessment and monitoring of desertification using
+  MODIS satellite imagery}.
+\newblock {\em Engineering Computations}, 26(7):745--760, 2009.
+
+\bibitem{nasa}
+NASA.
+\newblock {Modis Website}.
+\newblock \url{http://modis.gsfc.nasa.gov/about/}.
+\newblock Consulted : 7/12/2015.
+
+\end{thebibliography}
