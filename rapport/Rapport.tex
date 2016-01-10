@@ -49,7 +49,7 @@ En outre, les données satellites peuvent servir à analyser la qualité de l'ai
 \end{figure}
 
 \paragraph{}
-Plus proche de notre projet, la classification peut se faire par des algorithmes de machine learning. Cette approche a été suivie dans l'étude menée par M.A. Friedl et al. 
+Plus proche de notre projet, la classification peut se faire par des algorithmes de machine learning. Cette approche a été suivie dans l'étude menée par M.A. Friedl et al\cite{mapping}. 
 
 \begin{figure}[H]
   \centering
@@ -133,7 +133,7 @@ Le résultat d'une classification est une image RGB dont la couleur de chaque pi
 \caption{Code couleur des images produites par machine learning.} 
 \end{center}
 \end{figure}
-Estimer la qualité d'un classificateur revient à estimer la qualité de l'image résultante. Pour cela, deux méthodes s'offrent à nous: la première numérique, consiste à calculer la matrice de confusion de chaque classificateur comme expliqué INSERER ICI OU CEST EXPLIQUE. Pour plus de clarté, l'exactitude sera en rouge. L'autre méthode consiste à estimer à l'œil la correspondance entre les prédictions de nos algorithmes et la réalité (les zones de référence étant elles-mêmes choisies à l'œil, ce critère n'est pas plus mauvais que l'autre). Pour immédiatement visualiser cette correspondance, nous superposons l'image de base avec l'image résultante en transparence, comme par exemple sur la figure \ref{fig:veniseLSE}.
+Estimer la qualité d'un classificateur revient à estimer la qualité de l'image résultante. Pour cela, deux méthodes s'offrent à nous: la première numérique, consiste à calculer la matrice de confusion de chaque classificateur comme expliqué en 1.1.3. Pour plus de clarté, l'exactitude sera en rouge. L'autre méthode consiste à estimer à l'œil la correspondance entre les prédictions de nos algorithmes et la réalité (les zones de référence étant elles-mêmes choisies à l'œil, ce critère n'est pas plus mauvais que l'autre). Pour immédiatement visualiser cette correspondance, nous superposons l'image de base avec l'image résultante en transparence, comme par exemple sur la figure \ref{fig:veniseLSE}.
 
  \subsection{Les classifications linéaires}
  
@@ -345,7 +345,7 @@ NDVI=\frac{NIR-VIS}{NIR+VIS}
 \end{equation}
 Où NIR correspond à l'intensité lumineuse dans le proche infrarouge et VIS dans le rouge. Une valeur de cet indice proche de 1 indique la présence de végétation, une valeur négative indique des nages ou l'absence de végétation. Dans notre cas, les images multispectrales fournissent suffisamment d'informations par elles-mêmes pour classifier les sols avec précision sans passer par cet indice.
 
-L'un des objectifs de notre projet étant de déterminer des principes généraux pour la classification et l'exploitation des données Sentinel-2, nous avons cherché à comparer les résultats obtenus pour différents classificateurs. Nous avons d'abord cherché à comparer à l'œil ces méthodes en cherchant des différences sur les images obtenues, comme sur la figure \ref{comparaison}.
+L'un des objectifs de notre projet étant de déterminer des principes généraux pour la classification et l'exploitation des données Sentinel-2, nous avons cherché à comparer les résultats obtenus pour différents classificateurs. Nous avons d'abord cherché à comparer à l'œil ces méthodes en cherchant des différences sur les images obtenues, comme sur la figure \ref{fig:comparaison}.
 
 \begin{figure}[H]
   \centering

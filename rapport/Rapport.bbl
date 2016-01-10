@@ -8,8 +8,8 @@ European~Space Agency.
 
 \bibitem{aizermanSVM}
 A~Aizerman, Emmanuel~M Braverman, and LI~Rozoner.
-\newblock Theoretical foundations of the potential function method in pattern
-  recognition learning.
+\newblock {Theoretical foundations of the potential function method in pattern
+  recognition learning}.
 \newblock {\em Automation and remote control}, 25:821--837, 1964.
 
 \bibitem{airSurv}
@@ -18,6 +18,13 @@ Jill~A. Engel-Cox, Christopher~H. Holloman, Basil~W. Coutant, and Raymond~M.
 \newblock {Qualitative and quantitative evaluation of MODIS satellite sensor
   data for regional and urban scale air quality}.
 \newblock {\em Atmospheric Environment}, 38(16):2495--2509, 2004.
+
+\bibitem{mapping}
+{Friedl M.A}, {McIver D.K}, {Hodges J.C.F}, {Zhang X.Y}, {Muchoney D},
+  {Strahler A.H}, {Woodcock C.E}, {Gopal S}, {Schneider A}, {Cooper A},
+  {Baccini A}, {Gao F}, and {Schaaf C}.
+\newblock {Global land cover mapping from MODIS: algorithms and early results}.
+\newblock {\em Remote Sensing of Environment}, 83(1--2):287--302, nov 2002.
 
 \bibitem{desert}
 Meng~Lung Lin, Cheng~Wu Chen, Qiu~Bing Wang, Yu~Cao, Jyh~Yi Shih, Yung~Tan Lee,
@@ -31,5 +38,12 @@ NASA.
 \newblock {Modis Website}.
 \newblock \url{http://modis.gsfc.nasa.gov/about/}.
 \newblock Consulted : 7/12/2015.
+
+\bibitem{NDVI}
+Nathalie Pettorelli, Jon~Olav Vik, Atle Mysterud, Jean-Michel Gaillard,
+  Compton~J. Tucker, and Nils~Chr. Stenseth.
+\newblock {Using the satellite-derived \{NDVI\} to assess ecological responses
+  to environmental change}.
+\newblock {\em Trends in Ecology \& Evolution}, 20(9):503--510, 2005.
 
 \end{thebibliography}

@@ -1,0 +1,64 @@
+\usepackage[utf8x]{inputenc}
+@comment{x-kbibtex-personnameformatting=<%l><, %f>}
+
+@misc{nasa,
+	author = "NASA",
+	howpublished = "\url{http://modis.gsfc.nasa.gov/about/}",
+	note = "Consulted : 7/12/2015",
+	title = "{Modis Website}"
+}
+
+@article{airSurv,
+	author = "Engel-Cox, Jill A. and Holloman, Christopher H. and Coutant, Basil W. and Hoff, Raymond M.",
+	doi = "10.1016/j.atmosenv.2004.01.039",
+	issn = "1352-2310",
+	journal = "Atmospheric Environment",
+	keywords = "Air quality; Satellite; MODIS; Particulate matter; Policy",
+	number = "16",
+	pages = "2495--2509",
+	title = "{Qualitative and quantitative evaluation of MODIS satellite sensor data for regional and urban scale air quality}",
+	url = "http://www.sciencedirect.com/science/article/pii/S1352231004001451",
+	volume = "38",
+	year = "2004"
+}
+
+@article{desert,
+	author = "Lin, Meng Lung and Chen, Cheng Wu and Wang, Qiu Bing and Cao, Yu and Shih, Jyh Yi and Lee, Yung Tan and Chen, Chen Yuan and Wang, Shin",
+	doi = "10.1108/02644400910985152",
+	eprint = "http://dx.doi.org/10.1108/02644400910985152",
+	journal = "Engineering Computations",
+	number = "7",
+	pages = "745--760",
+	title = "{Fuzzy model based assessment and monitoring of desertification using MODIS satellite imagery}",
+	url = "http://dx.doi.org/10.1108/02644400910985152",
+	volume = "26",
+	year = "2009"
+}
+
+@misc{sent2,
+	author = "Agency, European Space",
+	howpublished = "\url{http://www.esa.int/Our\_Activities/Observing\_the\_Earth/Copernicus/Sentinel-2/Introducing\_Sentinel-2}",
+	note = "Consulted: 8/12/2015"
+}
+
+@article{aizermanSVM,
+  title={Theoretical foundations of the potential function method in pattern recognition learning},
+  author={Aizerman, A and Braverman, Emmanuel M and Rozoner, LI},
+  journal={Automation and remote control},
+  volume={25},
+  pages={821--837},
+  year={1964}
+}
+
+@article{randomForest,
+  title={Random forests},
+  author={Breiman, Leo},
+  journal={Machine learning},
+  volume={45},
+  number={1},
+  pages={5--32},
+  year={2001},
+  publisher={Springer}
+}
+
+

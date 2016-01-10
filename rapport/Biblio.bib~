@@ -1,0 +1,79 @@
+@comment{x-kbibtex-personnameformatting=<%l><, %f>}
+
+\usepackage[utf8x]{inputenc}
+
+@misc{nasa,
+	author = "NASA",
+	howpublished = "\url{http://modis.gsfc.nasa.gov/about/}",
+	note = "Consulted : 7/12/2015",
+	title = "{Modis Website}"
+}
+
+@article{airSurv,
+	author = "Engel-Cox, Jill A. and Holloman, Christopher H. and Coutant, Basil W. and Hoff, Raymond M.",
+	doi = "10.1016/j.atmosenv.2004.01.039",
+	issn = "1352-2310",
+	journal = "Atmospheric Environment",
+	keywords = "Air quality; Satellite; MODIS; Particulate matter; Policy",
+	number = "16",
+	pages = "2495--2509",
+	title = "{Qualitative and quantitative evaluation of MODIS satellite sensor data for regional and urban scale air quality}",
+	url = "http://www.sciencedirect.com/science/article/pii/S1352231004001451",
+	volume = "38",
+	year = "2004"
+}
+
+@article{desert,
+	author = "Lin, Meng Lung and Chen, Cheng Wu and Wang, Qiu Bing and Cao, Yu and Shih, Jyh Yi and Lee, Yung Tan and Chen, Chen Yuan and Wang, Shin",
+	doi = "10.1108/02644400910985152",
+	eprint = "http://dx.doi.org/10.1108/02644400910985152",
+	journal = "Engineering Computations",
+	number = "7",
+	pages = "745--760",
+	title = "{Fuzzy model based assessment and monitoring of desertification using MODIS satellite imagery}",
+	url = "http://dx.doi.org/10.1108/02644400910985152",
+	volume = "26",
+	year = "2009"
+}
+
+@misc{sent2,
+	author = "Agency, European Space",
+	howpublished = "\url{http://www.esa.int/Our\_Activities/Observing\_the\_Earth/Copernicus/Sentinel-2/Introducing\_Sentinel-2}",
+	note = "Consulted: 8/12/2015"
+}
+
+@article{aizermanSVM,
+	author = "Aizerman, A and Braverman, Emmanuel M and Rozoner, LI",
+	journal = "Automation and remote control",
+	pages = "821--837",
+	title = "{Theoretical foundations of the potential function method in pattern recognition learning}",
+	volume = "25",
+	year = "1964"
+}
+
+@article{randomForest,
+	author = "Breiman, Leo",
+	journal = "Machine learning",
+	number = "1",
+	pages = "5--32",
+	publisher = "Springer",
+	title = "{Random forests}",
+	volume = "45",
+	year = "2001"
+}
+
+@article{mapping,
+	author = "{Friedl M.A} and {McIver D.K} and {Hodges J.C.F} and {Zhang X.Y} and {Muchoney D} and {Strahler A.H} and {Woodcock C.E} and {Gopal S} and {Schneider A} and {Cooper A} and {Baccini A} and {Gao F} and {Schaaf C}",
+	issn = "0034-4257",
+	journal = "Remote Sensing of Environment",
+	month = "nov",
+	number = "1--2",
+	pages = "287--302",
+	risfield_0_t2 = "The Moderate Resolution Imaging Spectroradiometer (MODIS): a new generation of Land Surface Monitoring",
+	risfield_1_do = "http://dx.doi.org/10.1016/S0034-4257(02)00078-0",
+	title = "{Global land cover mapping from MODIS: algorithms and early results}",
+	url = "http://www.sciencedirect.com/science/article/pii/S0034425702000780",
+	volume = "83",
+	year = "2002"
+}
+
