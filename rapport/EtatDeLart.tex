@@ -35,7 +35,7 @@ Une image multispectrale, quant à elle, est formée de nombreuses images prises
 
 \paragraph{MODIS vs Sentinel 2}
 \paragraph{}
-Parmi les satellites utilisant cette technologie on trouve les satellites Aqua et Terra MODIS (Moderate-Resolution Imaging SpectroRadiometer). Ces deux satellites, lancés par la NASA en 1999 et 2002, imagent l'intégralité de la surface de la Terre tous les deux jours. Les données sont ensuite traitées et mises à disposition du public gratuitement, ce qui en a fait une des principales sources d'images satellites multispectrales. Ces satellites sont capables de mesurer 36 bandes fréquentielles avec trois résolutions différentes : 250m, 500m et 1000m par pixel. L'objectif de cette mission est de "jouer un rôle vital dans le développement de modèles globaux, validés et interactifs de systèmes terrestres capables de prévoir des changements globaux avec suffisamment de précision pour aider les décideurs politiques à prendre des décisions avisées concernant la protection de notre environnement."\cite{nasa}
+Parmi les satellites utilisant cette technologie on trouve les satellites Aqua et Terra MODIS (Moderate-Resolution Imaging SpectroRadiometer). Ces deux satellites, lancés par la NASA en 1999 et 2002, imagent l'intégralité de la surface de la Terre tous les deux jours. Les données sont ensuite traitées et mises à disposition du public gratuitement, ce qui en a fait une des principales sources d'images satellites multispectrales. Ces satellites sont capables de mesurer 36 bandes fréquentielles avec trois résolutions différentes: 250m, 500m et 1000m par pixel. L'objectif de cette mission est de "jouer un rôle vital dans le développement de modèles globaux, validés et interactifs de systèmes terrestres capables de prévoir des changements globaux avec suffisamment de précision pour aider les décideurs politiques à prendre des décisions avisées concernant la protection de notre environnement."\cite{nasa}
 
 La faible résolution des données MODIS ne permet en revanche pas de discerner des détails comme des cours d'eau ou des habitations : des données plus précises sont donc nécessaires pour obtenir de meilleures classifications. 
 
@@ -49,7 +49,7 @@ Dans le cadre du projet \textit{Copernicus} d'observation de la Terre, l'agence 
 \end{figure}
 
 Les résolutions des images satellites Sentinel 2 sont de résolution grandement meilleures que celles acquises par satellites MODIS. Leur mise à disposition du public étant elle aussi gratuite, on comprend leur intérêt. 
-Néanmoins, la mission de l'Esa est récente : peu de données sont actuellement disponibles. La courverture temporelle, c'est-à-dire la fréquence à laquelle le satellite passe au-dessus d'une même zone, est également assez faible. Un seul des deux satellites ayant été lancé, le renouvellement des données se fait de manière hebdomadaire, alors que les satellites MODIS renouvellent les données deux fois par jour. 
+Néanmoins, la mission de l'ESA est récente : peu de données sont actuellement disponibles. La couverture temporelle, c'est-à-dire la fréquence à laquelle le satellite passe au-dessus d'une même zone, est également assez faible. Un seul des deux satellites ayant été lancé, le renouvellement des données se fait de manière hebdomadaire, alors que les satellites MODIS renouvellent les données deux fois par jour. 
 
 \subsection{Classification et Machine Learning}
 
@@ -62,14 +62,14 @@ Le machine learning se sépare en trois type d'apprentissage :
 \begin{itemize}
   \item[>] L'apprentissage non-supervisé, qui consiste à donner à notre algorithme uniquement les données à classifier et à le laisser établir les différentes classes à partir des ensembles qui se séparent le mieux.
   \item[>] La régression, qui cherche à définir les données à l'aide d'une loi mathématique.
-  \item[>] L'apprentissage supervisé, pour lequel il faut définir, en plus des données à traiter, des ensembles de vecteurs représentatifs de chacune des classes et déjà classés. Les vecteurs classés manuellement vont servir d’entraînement pour l'apprentissage et donc pour trouver les frontières qui séparent le mieux nos différentes classes.
+  \item[>] L'apprentissage supervisé, pour lequel il faut définir, en plus des données à traiter, des ensembles de vecteurs représentatifs de chacune des classes et déjà classés. Les vecteurs classés manuellement vont servir d'entraînement pour l'apprentissage et donc pour trouver les frontières qui séparent le mieux nos différentes classes.
 \end{itemize}
 
 \paragraph{}
 Dans le cas de la surveillance d'occupation des sols, on utilise souvent des méthodes supervisées, car il est relativement aisé de reconnaître à l'œil les différents types de zones au sol (eau, champs, villes, ...). Là encore, il existe plusieurs familles d'algorithmes d'apprentissage supervisé, on différenciera dans un premier temps les algorithmes linéaires et non-linéaires. Dans la famille des algorithmes non-linéaire, on trouve des algorithmes intrinsèquement multi-classes (tel que l'algorithme dit des k-plus proches voisins que nous détaillerons plus tard), et les algorithmes binaires.
 \input{diagrammeML}%pas sûr que le diagramme soit utile finalement...
 \paragraph{}
-Pour les algorithmes intrinsèquement multi-classes, il suffit de stocker les vecteurs d’entraînement et d'appliquer directement la classification à l'ensemble des données, il n'y a donc pas d’entraînement à proprement parler.
+Pour les algorithmes intrinsèquement multi-classes, il suffit de stocker les vecteurs d'entraînement et d'appliquer directement la classification à l'ensemble des données, il n'y a donc pas d'entraînement à proprement parler.
 \paragraph{}
 Les algorithmes binaires, quant à eux, demandent un peu plus de travail. Dès que l'on veut traiter plus de deux classes, il faut faire plusieurs entraînements, en se ramenant chaque fois à un problème binaire. Là encore, il y a deux approches possibles en fonction des algorithmes :
  \begin{itemize}
@@ -111,7 +111,7 @@ Les données Sentinel 2 étant très récentes, nous faisons partie des premiers
 Bien que ce projet s'étende sur une durée assez courte (6 semaines), les objectifs fixés étaient :
 \begin{itemize}
   \item[>] Définir les principaux intérêts des images multispectrales Sentinel 2.
-  \item[>] Etablir une classification de la surface terrestre (suivi d'occupation des sols) en trois classes ("Eau", "Urbain","Champ") à partir d'une image de la base de données Sentinel 2.
+  \item[>] Établir une classification de la surface terrestre (suivi d'occupation des sols) en trois classes ("Eau", "Urbain","Champ") à partir d'une image de la base de données Sentinel 2.
   \item[>] Tester les algorithmes de Machine Learning les plus répandus.
 \end{itemize}
 
