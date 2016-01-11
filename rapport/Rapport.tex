@@ -2,6 +2,14 @@
 
 \input{include.tex}
 \usepackage{float}
+\hypersetup{                    % parametrage des hyperliens
+    colorlinks=true,                % colorise les liens
+    breaklinks=true,                % permet les retours à la ligne pour les liens trop longs
+    urlcolor= blue,                 % couleur des hyperliens
+    linkcolor= black,                % couleur des liens internes aux documents (index, figures, tableaux, equations,...)
+    citecolor= green                % couleur des liens vers les references bibliographiques
+    }
+
 \graphicspath{{pictures/}}
 \DeclareUnicodeCharacter{00A0}{ }
 \widowpenalty=10000
@@ -9,10 +17,24 @@
 \input{environnements.tex}
 \setlength{\parindent}{0.5cm}
 \begin{document}
-\title{Projet Imagerie Multispectrale}
-\author{Aurélien Barbotin Pierre David Benjamin Michelland Youna le Vaou}
+ 
 
+\title{Projet Imagerie Multispectrale}
+\author{Aurélien Barbotin, Pierre David, Benjamin Michelland, Youna le Vaou}
+
+%P'tit bout de code pour centrer le titre
+\null  % Empty line
+\nointerlineskip  % No skip for prev line
+\vfill
+\let\snewpage \newpage
+\let\newpage \relax
 \maketitle
+\let \newpage \snewpage
+\vfill 
+\break % page break
+
+\tableofcontents
+\newpage
 
 %\chapter{Présentation du projet}
 \input{EtatDeLart}
@@ -60,52 +82,52 @@ Plus proche de notre projet, la classification peut se faire par des algorithmes
 
 \subsection{Les logiciels de classification}
 Nous allons ici présenter quelques logiciels qui permettent de faire de la surveillance d'occupation des sols. Il en existe un très grand nombre, c'est pourquoi nous nous sommes concentrés sur les principaux logiciels utilisés dans le domaine.
-\paragraph{QGIS}
+\paragraph{QGIS} 
 \paragraph{}
-QGIS est un logiciel libre multiplateforme, qui permet de traiter les formats usuels d'image satellite, mais aussi d'y ajouter des couches vectorielles pour délimiter des polygones ou classifier des zones géographiques.
+QGIS \footnote{\href{http://www.qgis.org}{Site Officiel de QGIS }}est un logiciel de cartographie libre publié sous licence GPL. Multiplateforme, il permet de traiter les formats usuels d'image satellite, mais aussi d'y ajouter des couches vectorielles pour délimiter des polygones ou classifier des zones géographiques.
 De plus, la communauté de QGIS a développé de nombreux "plugins" (modules d'extension) permettant d'appliquer différents algorithmes de machine learning.\newline
 Le logiciel SAGA, intégré à QGIS, utilise l'algorithme de ressemblance maximale, qui permet de faire une classification statistique des pixels. Ayant choisi des polygones d'entraînement, ils vont être assimilés à des lois normales et à partir de leurs moyennes et de leurs variances, les pixel inconnus vont appartenir à la classe à laquelle ils ont le plus de chance d'appartenir.
 Semi-Automatic Classification Plugin, permet également d'obtenir des classifications à partir d'image à l'aide de différents algorithmes.
-OrfeoToolBox est un autre logiciel qui a la possibilité d'être utilisé via Qgis et qui peut réaliser une classification d'images satellite.
+OrfeoToolBox est un autre logiciel qui a la possibilité d'être utilisé via QGIS et qui peut réaliser une classification d'images satellite.
 
 \paragraph{ENVI}
 \paragraph{}
-ENVI ({\href{http://www.exelisvis.fr/ProduitsetServices/LesproduitsENVI/ENVI.aspx}{ENvironment for Visualizing Images}}) est un logiciel propriétaire, payant, sous licence commerciale. Il permet de traiter efficacement les données satellites à l'aide de plusieurs algorithmes dont celui de la ressemblance maximum. C'est un logiciel très utilisé dans l'industrie et qui est relativement facile d'utilisation.
+ENVI (ENvironment for Visualizing Images) (\footnote{\href{http://www.exelisvis.fr/ProduitsetServices/LesproduitsENVI/ENVI.aspx}{Site officiel d'ENVI}}) est un logiciel propriétaire, payant, sous licence commerciale. Il permet de traiter efficacement les données satellites à l'aide de plusieurs algorithmes dont celui de la ressemblance maximum. C'est un logiciel très utilisé dans l'industrie et qui est relativement facile d'utilisation.
 \paragraph{ArcGIS}
 \paragraph{}
-Parmi les logiciels payant sous licence propriétaire, on peut aussi noter ArcGIS, développé par la société Esri (Environmental Systems Research Institute, Inc.). Il contient également une boîte à outil de traitement des images géographiques relativement complète.
+Parmi les logiciels payant sous licence propriétaire, on peut aussi noter ArcGIS \footnote{\href{http://www.esrifrance.fr/arcgis.aspx}{Site officiel d'ArcGIS}}, développé par la société Esri (Environmental Systems Research Institute, Inc.). Il contient également une boîte à outil de traitement des images géographiques relativement complète.
 
 \section{Méthode et organisation}
 \subsection{Processus}
 \paragraph{}
 L'objectif de ce projet était de classifier une zone géographique à partir des images satellites fournies par Sentinel-2. Par souci de lisibilité, nous avons choisi de présenter les résultats sous la forme d'images RGB composées d'autant de teintes qu'on a choisi de classes (par exemple pour une classification tri-classes, l'image finale a trois teintes : rouge, verte et bleue).
 \paragraph{}
-Afin d'arriver à ce résultat, il a fallu traiter les données fournies par l'ESA. Celles-là ont donc subi un processus résumé ci-dessous et expliqué après : \\\\
+Afin d'arriver à ce résultat, il a fallu traiter les données fournies par l'ESA. Celles-ci ont donc subi un processus résumé ci-dessous : \\\\
 \includegraphics[scale=0.3]{process_Multispec.pdf}
-\subsubsection{SNAP}
+\paragraph{SNAP}
 \paragraph{}
 SNAP\footnote{\href{http://step.esa.int/main/toolboxes/snap/}{SNAP | STEP}} (ou Sentinel Application Platform) est un logiciel open-source et gratuit développé par l'Agence Spatiale Européenne (ESA). Il est le seul capable d'ouvrir les données de Sentinel-2 et d'afficher les différentes bandes de l'image multispectrale. Pour pouvoir manipuler simplement l'image (l'originale étant très volumineuse et dans un format complexe et inadapté), nous avons donc sélectionné une sous-image que nous avons exportée au format GéoTIFF.
-\subsubsection{QGIS}
+\paragraph{QGIS}
 \paragraph{}
-QGIS\footnote{\href{http://www.qgis.org}{Site Officiel de QGIS}} est un logiciel de cartographie libre publié sous licence GPL. Afin de pouvoir utiliser les algorithmes d'apprentissage automatique, nous avons besoin de sélectionner des pixels dont on connaît par avance la classe (urbain, champ ou eau). Sous QGIS, nous avons donc tracé des polygones autour de zones ne contenant qu'un seul type de classe : des polygones autour d'une région ne contenant que de l'eau, puis que des champs, puis que de la ville. Nous avons ensuite exporté les coordonnées de ces polygones.
-\subsubsection{Script Python}
+Afin de pouvoir utiliser les algorithmes d'apprentissage automatique, nous avons besoin de sélectionner des pixels dont on connaît par avance la classe (urbain, champ ou eau). Sous QGIS, nous avons donc tracé des polygones autour de zones ne contenant qu'un seul type de classe : des polygones autour d'une région ne contenant que de l'eau, puis que des champs, puis que de la ville. Nous avons ensuite exporté les coordonnées de ces polygones.
+\paragraph{Script Python}
 \paragraph{}
-Comme il a été précédemment écrit, pour pouvoir utiliser les algorithmes d'apprentissage automatique, il faut choisir sur l'image des pixels dont on connaît par avance la classe. Nous avons donc écrit un script sous Python en utilisant l'image sélectionnée et les coordonnées des polygones sélectionnés auparavant. Nous avons extrait les valeurs des 13 bandes de tous les pixels contenus à l'intérieur des polygones. Ces "pixels" de 13 bandes formeront les vecteurs d'entraînement de nos algorithmes d'apprentissage automatique. On enregistre alors trois listes de pixels sous format texte : une liste des pixels "urbain", une autre contenant les pixels "champs" et enfin une dernière liste avec les pixels "eau".
-\subsubsection{Sk-learn, dlib et PRT}
+Comme il a été précédemment écrit, pour pouvoir utiliser les algorithmes d'apprentissage automatique, il faut choisir sur l'image des pixels dont on connaît par avance la classe. Nous avons donc écrit un script sous Python en utilisant l'image sélectionnée et les coordonnées des polygones sélectionnés auparavant. Nous avons extrait les valeurs des 13 bandes spectrales de tous les pixels contenus à l'intérieur des polygones. Ces "pixels" de 13 bandes formeront les vecteurs d'entraînement de nos algorithmes d'apprentissage automatique. On enregistre alors trois listes de pixels sous format texte : une liste des pixels "urbain", une autre contenant les pixels "champs" et enfin une dernière liste avec les pixels "eau".
+\paragraph{Sk-learn, dlib et PRT}
 \paragraph{}
 Sk-learn\footnote{\href{http://scikit-learn.org}{scikit-learn.org}}, dlib\footnote{\href{http://dlib.net}{dlib.net}} et PRT\footnote{\href{https://github.com/covartech/PRT}{github.com/covartech/PRT}} sont trois bibliothèques permettant d'utiliser des algorithmes d'apprentissage automatique. Elles sont respectivement publiées sous Licence BSD, Licence Logicielle Boost et Licence MIT, toutes trois des licences de logiciel libre. Toutes les trois sont écrites dans un langage différent, respectivement Python, C++ et MatLab. L'idée était de tester les différentes implémentations, de comparer leur rapidité et leur facilité d'utilisation. Nous avons utilisé quatre algorithmes classiques pour la classification : la méthode aux moindres carrés, celle des K-Nearest Neighbors, l'Analyse Discriminante Linéaire et des Machines à Vecteur de Support. Les résultats seront exposés et comparés plus loin dans le rapport. Nous avons donc utilisé différents algorithmes sous différentes implémentations sur notre image. Finalement, nous avons créé une image RGB avec en rouge les zones urbaines, en vert les zones agricoles et en bleu l'eau. Associé à cette image, nous avons aussi calculé une matrice de confusion, outil mathématique permettant d'évaluer rapidement et finement la qualité de la classification opérée par un des algorithmes d'apprentissage automatique.
 \subsection{Organisation du projet}
-\subsubsection{Répartition du travail}
+\paragraph{Répartition du travail}
 \paragraph{}
 Dans un premier temps, il a fallu tous nous familiariser avec les notions d'apprentissage automatique et avec les différents logiciels à utiliser. Nous avons donc tous les quatre travaillé en commun. Chacun a donc appris à utiliser SNAP, puis QGIS. Quand nous avons commencé à mieux comprendre le projet et à être plus à l'aise, nous nous sommes partagés les tâches.
 \paragraph{}
-Pendant que Youna, Aurélien et Pierre continuaient de se documenter sur l'apprentissage automatique, Benjamin travaillait sur le script Python permettant l'extraction des pixels "intéressants". C'est donc Benjamin qui a codé ce bloc. Une fois cette partie terminée, à l'aide des pixels extraits, nous avons tous pu commencer à implémenter les algorithmes d'apprentissage automatique. Chacun a choisi un langage différent : Benjamin a choisi le C++, Aurélien le Python, Youna et Pierre le langage MatLab. Nous avons tous codé de a à z la méthode des moindres carrés car celle-ci est la méthode la plus simple et qu'elle permet de comprendre tout le principe de la classification. Cette première méthode a donc eu un intérêt pédagogique.
+Pendant que Youna, Aurélien et Pierre continuaient de se documenter sur l'apprentissage automatique, Benjamin travaillait sur le script Python permettant l'extraction des pixels "intéressants". C'est donc Benjamin qui a codé ce bloc. Une fois cette partie terminée, à l'aide des pixels extraits, nous avons tous pu commencer à implémenter les algorithmes d'apprentissage automatique. Chacun a choisi un langage différent : Benjamin a choisi le C++, Aurélien le Python, Youna et Pierre le langage MatLab. Nous avons tous codé entièrement la méthode des moindres carrés car celle-ci est la méthode la plus simple et qu'elle permet de comprendre tout le principe de la classification. Cette première méthode a donc eu un intérêt pédagogique.
 \paragraph{}
 C'est à partir de ce moment que nous avons commencé à paralléliser les tâches : chacun a implémenté les algorithmes d'apprentissage automatique avec différents langages et différentes bibliothèques : Benjamin a utilisé dlib sous C++, Aurélien sk-learn sous Python, Youna ANN (Approximate Nearest Neighbors, publiée sous Licence LGPL) sous C++ pour coder la méthode des k plus proches voisins et Pierre a utilisé PRT sous MatLab.
-\subsubsection{Mise en commun du travail}
+\paragraph{Mise en commun du travail}
 \paragraph{}
 Afin d'organiser au mieux le code que nous avons écrit, nous avons utilisé Git. Cela nous a permis de partager nos différents codes ainsi que nos différents résultats. Par ailleurs, nous avons choisi d'écrire notre rapport sous LaTeX. Git s'est donc aussi révélé très utile quand il s'est agi de mettre en commun les contributions de chacun dans la rédaction. À ce propos, nous avons décidé de nommer un coordinateur pour la rédaction du rapport : Pierre et un autre coordinateur pour la soutenance : Youna.
-\subsubsection{Rencontres avec le tuteur}
+\paragraph{Rencontres avec le tuteur}
 \paragraph{}
 Le projet s'est intégralement structuré autour de réunions hebdomadaires avec notre tuteur Nicolas Brodu. Ces réunions avaient à la fois pour but de rapporter les progrès que nous avions faits mais aussi de nous apprendre les bases de Machine Learning. Ces réunions ont donc été capitales dont la compréhension du sujet et donc dans l'avancement du projet. Le projet ayant duré 6 semaines, nous avons fait 6 réunions. Voici donc l'historique des réunions et les points abordés.
 \paragraph{04/11 :} Dans un premier temps, Nicolas Brodu nous a exposé ce sur quoi il travaillait, il a aussi dressé un court état de l'art de la classification des sols. Il nous a ensuite proposé plusieurs sujets portant sur ce domaine et nous avons alors choisi de développer l'aspect Apprentissage Automatique avec pour objet les images multispectrales de Sentinel-2. Une fois ce choix fait, nous avons établi avec lui un cahier des charges.
