@@ -1,15 +1,19 @@
 %opening
+\paragraph{}
 
-\section{Contexte}
+\section{{Contexte}}
 
-Ce projet s'inscrit dans le cadre de notre formation ingénieur. Il s'étend sur six semaines et a été encadré par M. Brodu, chercheur post-doctorant à l'Inria dans l'équipe GeoStat \footnote{\href{https://geostat.bordeaux.inria.fr/}{Géométrie et Statistiques dans les données d'acquisition}} à Bordeaux. Nous présentons dans cette partie les enjeux de la surveillance satellite par rapport à notre projet, puis nous détaillerons deux aspects nécessaires à la compréhension de ce projet : l'imagerie multispectrale et le "machine learning". Nous exposerons ensuite les objectifs de ce projet. 
+\paragraph{}
+
+Ce projet s'inscrit dans le cadre de notre formation ingénieur. Il s'étend sur six semaines et a été encadré par Nicolas Brodu, chercheur post-doctorant à l'Inria dans l'équipe GeoStat \footnote{\href{https://geostat.bordeaux.inria.fr/}{Géométrie et Statistiques dans les données d'acquisition}} à Bordeaux. Nous présentons dans cette partie les enjeux de la surveillance satellite par rapport à notre projet, puis nous détaillons deux aspects nécessaires à la compréhension de ce projet : l'imagerie multispectrale et le "machine learning". Nous exposons ensuite les objectifs de ce projet. 
+\paragraph{}
 
 \subsection{Enjeux de la surveillance satellite}
  
 La classification et le suivi des sols sont un domaine particulier d'utilisation des satellites orbitant autour de la Terre. 
 Les applications sont nombreuses ; elles concernent aussi bien l'agriculture que la surveillance environnementale (fonte des glaces, observation des océans et des forêts) en passant par la géologie, sans oublier la cartographie.
 
-De manière plus concrète, M. Brodu, notre encadrant pédagogique, a mené des projets de traitement d'image satellite pour la surveillance environnementale. Il a notamment travaillé avec l'équipe OptIC \footnote{\href{https://optic.bordeaux.inria.fr/}{Optimal Inference in Complex and Turbulent Data}}, associée à l'Inria. L'idée était de suivre l'évolution de la végétation afin de repérer les zones de sécheresse, et ainsi pouvoir mieux gérer les ressources en eau. Une classification des sols de la région autour de Roorkee (Inde) a ainsi été effectuée (bien que les résultats n'aient pas encore été publiés). 
+De manière plus concrète, Nicolas Brodu, notre encadrant pédagogique, a mené des projets de traitement d'image satellite pour la surveillance environnementale. Il a notamment travaillé avec l'équipe OptIC \footnote{\href{https://optic.bordeaux.inria.fr/}{Optimal Inference in Complex and Turbulent Data}}, associée à l'Inria. L'idée était de suivre l'évolution de la végétation afin de repérer les zones de sécheresse, et ainsi pouvoir mieux gérer les ressources en eau. Une classification des sols de la région autour de Roorkee (Inde) a ainsi été effectuée (bien que les résultats n'aient pas encore été publiés). 
 Cette classification a été réalisée grâce à des données d'imagerie multispectrale, qui est une technique de télédétection. Notre projet se situant dans la continuité des travaux de M. Brodu, c'est donc à cette technique que nous nous sommes intéressés, même s'il en existe d'autres (imagerie radar par exemple). 
 
 \subsection{Imagerie satellite multispectrale}
@@ -24,7 +28,7 @@ Une image photographique couleur "classique" contient en réalité trois images 
   \label{fig:veniseRGB}
 \end{figure}
 
-Une image multispectrale, quant à elle, est formée de nombreuses images prises à des longueurs d'ondes variées. Elle contient donc plus d'informations, et selon les longueurs d'ondes d'acquisition peut avoir, en plus du visible (400 à 800nm), des informations dans l'ultraviolet ou l'infrarouge.
+Une image multispectrale, quant à elle, est formée de nombreuses images prises à des longueurs d'ondes variées. On dit qu'elle est composée de plusieurs "bandes spectrales". Elle contient donc plus d'informations, et selon les longueurs d'ondes d'acquisition peut avoir, en plus du visible (400 à 800nm), des informations dans l'ultraviolet ou l'infrarouge.
 
 \begin{figure}[H]
   \centering
@@ -66,8 +70,8 @@ Le machine learning se sépare en trois type d'apprentissage :
 \end{itemize}
 
 \paragraph{}
-Dans le cas de la surveillance d'occupation des sols, on utilise souvent des méthodes supervisées, car il est relativement aisé de reconnaître à l'œil les différents types de zones au sol (eau, champs, villes, ...). Là encore, il existe plusieurs familles d'algorithmes d'apprentissage supervisé, on différenciera dans un premier temps les algorithmes linéaires et non-linéaires. Dans la famille des algorithmes non-linéaire, on trouve des algorithmes intrinsèquement multi-classes (tel que l'algorithme dit des k-plus proches voisins que nous détaillerons plus tard), et les algorithmes binaires.
-\input{diagrammeML}%pas sûr que le diagramme soit utile finalement...
+Dans le cas de la surveillance d'occupation des sols, on utilise souvent des méthodes supervisées, car il est relativement aisé de reconnaître à l'œil les différents types de zones au sol (eau, champs, villes, ...). Là encore, il existe plusieurs familles d'algorithmes d'apprentissage supervisé, on différenciera dans un premier temps les algorithmes linéaires et non-linéaires. Dans la famille des algorithmes non-linéaires, on trouve des algorithmes intrinsèquement multi-classes (tel que l'algorithme dit des k-plus proches voisins que nous détaillerons plus tard), et les algorithmes binaires.
+%\input{diagrammeML}%pas sûr que le diagramme soit utile finalement...
 \paragraph{}
 Pour les algorithmes intrinsèquement multi-classes, il suffit de stocker les vecteurs d'entraînement et d'appliquer directement la classification à l'ensemble des données, il n'y a donc pas d'entraînement à proprement parler.
 \paragraph{}
