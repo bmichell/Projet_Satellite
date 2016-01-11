@@ -2,6 +2,7 @@
 
 \input{include.tex}
 \usepackage{float}
+\usepackage[francais]{babel}
 \hypersetup{                    % parametrage des hyperliens
     colorlinks=true,                % colorise les liens
     breaklinks=true,                % permet les retours à la ligne pour les liens trop longs
@@ -20,7 +21,7 @@
  
 
 \title{Projet Imagerie Multispectrale}
-\author{Aurélien Barbotin, Pierre David, Benjamin Michelland, Youna le Vaou}
+\author{Aurélien Barbotin, Pierre David, Benjamin Michelland, Youna Le Vaou}
 
 %P'tit bout de code pour centrer le titre
 \null  % Empty line
@@ -80,7 +81,7 @@ Plus proche de notre projet, la classification peut se faire par des algorithmes
   \label{fig:clSols}
 \end{figure}
 
-\subsection{Les logiciels de classification}
+\subsection{Logiciels de classification}
 Nous allons ici présenter quelques logiciels qui permettent de faire de la surveillance d'occupation des sols. Il en existe un très grand nombre, c'est pourquoi nous nous sommes concentrés sur les principaux logiciels utilisés dans le domaine.
 \paragraph{QGIS} 
 \paragraph{}
@@ -92,7 +93,7 @@ OrfeoToolBox est un autre logiciel qui a la possibilité d'être utilisé via QG
 
 \paragraph{ENVI}
 \paragraph{}
-ENVI (ENvironment for Visualizing Images) (\footnote{\href{http://www.exelisvis.fr/ProduitsetServices/LesproduitsENVI/ENVI.aspx}{Site officiel d'ENVI}}) est un logiciel propriétaire, payant, sous licence commerciale. Il permet de traiter efficacement les données satellites à l'aide de plusieurs algorithmes dont celui de la ressemblance maximum. C'est un logiciel très utilisé dans l'industrie et qui est relativement facile d'utilisation.
+ENVI (ENvironment for Visualizing Images) \footnote{\href{http://www.exelisvis.fr/ProduitsetServices/LesproduitsENVI/ENVI.aspx}{Site officiel d'ENVI}} est un logiciel propriétaire, payant, sous licence commerciale. Il permet de traiter efficacement les données satellites à l'aide de plusieurs algorithmes dont celui de la ressemblance maximum. C'est un logiciel très utilisé dans l'industrie et qui est relativement facile d'utilisation.
 \paragraph{ArcGIS}
 \paragraph{}
 Parmi les logiciels payant sous licence propriétaire, on peut aussi noter ArcGIS \footnote{\href{http://www.esrifrance.fr/arcgis.aspx}{Site officiel d'ArcGIS}}, développé par la société Esri (Environmental Systems Research Institute, Inc.). Il contient également une boîte à outil de traitement des images géographiques relativement complète.
@@ -139,7 +140,7 @@ Le projet s'est intégralement structuré autour de réunions hebdomadaires avec
 
 \subsection{Innovation et valorisation possible du projet}
 \paragraph{}
-Si nous avions pu continuer notre projet et faire de celui-ci un projet d'entreprise (le valoriser donc), la piste nous paraissant la plus rentable ne passe pas par la propriété intellectuelle. En effet, les images utilisées sont libres et accessibles par tous et, bien que les bibliothèques utilisées soient sous licences libres, nous n'avons fait qu'utiliser les fonctions principales de machine learning, il n'y a donc pas beaucoup de code à valoriser. En revanche, nous avons acquis une expérience et une certaine expertise de l'utilisation des méthodes de machine learning pour la classification des sols. Nous sommes parmi les premiers à avoir tester ces algorithmes sur les données Sentinel-2 et cette longueur d'avance, si elle est maintenue, peut nous donner un avantage concurrentiel important. Ainsi, une façon de valoriser notre projet serait de vendre notre expertise à des acteurs de l'industrie agricole, minière ou pétrolière, de manière plus générale à toutes les entreprises utilisant la surveillance des sols dans leurs activités. Nous vendrions donc nos services aux entreprises souhaitant sous-traiter cette étape de leur activité. Un des avantages de n'avoir utilisé que des bibliothèques libres et gratuites serait alors de ne pas avoir de coût d'exploitation sur celles-ci et de pouvoir compter sur une communauté libriste dynamique améliorant fréquemment les différentes bibliothèques. Ainsi, la valorisation de notre projet par la propriété intellectuelle serait indirecte.
+Si nous avions pu continuer notre projet et le valoriser en un projet d'entreprise, nous aurions cherché à rentabiliser notre expertise plutôt que de protéger notre travail par des mesures directes de propriété intellectuelles. En effet, les images utilisées sont libres et accessibles par tous et, bien que les bibliothèques utilisées soient sous licences libres, nous n'avons fait qu'utiliser les fonctions principales de machine learning : il n'y a donc pas beaucoup de code à valoriser. En revanche, nous avons acquis une expérience et une certaine expertise de l'utilisation des méthodes de machine learning pour la classification des sols. Nous sommes parmi les premiers à avoir tester ces algorithmes sur les données Sentinel-2 et cette longueur d'avance, si elle est maintenue, peut nous donner un avantage concurrentiel important. Ainsi, une façon de valoriser notre projet serait de vendre notre expertise à des acteurs de l'industrie agricole, minière ou pétrolière, de manière plus générale à toutes les entreprises utilisant la surveillance des sols dans leurs activités. Nous vendrions donc nos services aux entreprises souhaitant sous-traiter cette étape de leur activité. Un des avantages de n'avoir utilisé que des bibliothèques libres et gratuites serait alors de ne pas avoir de coût d'exploitation sur celles-ci et de pouvoir compter sur une communauté libriste dynamique améliorant fréquemment les différentes bibliothèques. Ainsi, la valorisation de notre projet par la propriété intellectuelle serait indirecte.
 
 \section{Résultats}
 Le résultat d'une classification est une image RGB dont la couleur de chaque pixel représente la classe à laquelle il appartient selon l'algorithme. Par exemple, dans une image résultat, un pixel bleu correspond à un point identifié par l'algorithme comme étant de l'eau. Notre code couleur est résumé dans le tableau \ref{table:codeCouleur}.
@@ -175,6 +176,7 @@ Estimer la qualité d'un classificateur revient à estimer la qualité de l'imag
 Il existe plusieurs méthodes pour trouver une droite qui sépare correctement les deux ensembles de points.
 
 \paragraph{La méthode des moindres carrés}
+\paragraph{}
   La première méthode consiste à faire l'hypothèse que tous les points des deux ensembles sont alignés, et qu'on peut alors trouver une droite telle que tous les points soient à une distance de 1, pour l'une des deux classes, et de -1 pour l'autre. On se ramène alors à une optimisation linéaire qui peut être résolue par la méthode des moindres carrés.
   C'est la première classification que nous avons testée et aussi la seule que nous avons entièrement implémentée nous-mêmes. 
   
@@ -215,6 +217,7 @@ Précision & 99.9\%  & 78.9\% & 99.9\% & {\color{red}90.9\%} \\
 L'exactitude de cette méthode est de 90.9\%. On peut constater que l'eau est très bien classifiée, et que les erreurs proviennent majoritairement de confusions entre les champs et la ville. Il est également intéressant de voir que cette confusion n'est pas symétrique : si lez zones urbaines sont classifiées comme des champs par l'algorithme, l'inverse est beaucoup moins vrai.
 
 \paragraph{Analyse discriminante linéaire ou de Fisher}
+\paragraph{}
   Une seconde méthode consiste à utiliser l'analyse discriminante linéaire\footnote{ou analyse discriminante de Fisher}(LDA), c'est-à-dire poser l'hypothèse que chaque ensemble de points a une distribution gaussienne, et à trouver, à partir de la variance et de la moyenne de ces distributions la meilleure séparation entre les ensembles. On peut voir cette méthode comme une recherche de droite sur laquelle la projection des gaussiennes est la mieux séparé, la meilleure séparation est alors l'hyperplan perpendiculaire à cette droite. Cependant, dans la pratique, l'hypothèse de distribution gaussienne est très forte et rarement vérifiée.
 
 \begin{figure}[H]
@@ -264,7 +267,7 @@ Dans certains cas, les ensembles sont impossibles à classifier de manière lin�
 \end{figure}
 
 \paragraph{Machine à Vecteurs de Support (SVM) :}
-
+\paragraph{}
 Les SVM ont été développées dans les années 1990 d'après les travaux de Vladimir Vapnik. Cette approche généralise les classificateurs linéaires en cherchant une séparation linéaire de marge maximum. Pour cela, l'idée est dans un premier temps de chercher les vecteurs des différentes classes qui définissent le mieux l'enveloppe de chaque classe, et de trouver l'hyperplan qui maximise l'écart à ces vecteurs de support.
 
 \begin{figure}[H]
@@ -317,7 +320,7 @@ Précision & 100\% & 97.6\% & 99.9\% & {\color{red}99.1\%} \\
 
 
 \paragraph{Les K plus proches voisins :}
-
+\paragraph{}
 La méthode des k plus proches voisins part d'une idée assez simple. Considérons un ensemble de points, dont les caractéristiques et les classes sont connues. Considérons un nouvel élément à classer. L'idée est qu'il sera de la même classe que le ou les points de caractéristiques les plus proches. Cette méthode présente donc aussi un méta-paramètre : le nombre de voisins k à prendre en compte. 
 
 \begin{figure}[H]
@@ -365,12 +368,22 @@ On observe également une exactitude en moyenne moindre pour les valeurs paires 
 \end{figure}
 
 \subsection{Conclusion}
-La première conclusion que nous pouvons tirer de notre travail est que les méthodes de machine learning que nous avons testées donnent pour la plupart des résultats très satisfaisants. Le support vecteur machine en particulier nous fournit une exactitude de 98.9\% avec trois classes. Il est d'usage de prétraiter les données pour calculer des indices comme l'index de végétation différentiel normalisé (NDVI)\cite{NDVI}:
+
+\paragraph{Des performances intéressantes}
+\paragraph{}
+La première conclusion que nous pouvons tirer de notre travail est que \textbf{les méthodes de machine learning que nous avons testées donnent pour la plupart des résultats très satisfaisants}. Le support vecteur machine en particulier nous fournit une exactitude de \textbf{99.1\%} avec trois classes. A l'état de l'art, et pour notre problématique, une classification est satisfaisante pour une exactitude supérieure à 95\%.
+
+\paragraph{Pas de calcul d'indice nécessaire}
+\paragraph{}
+Il est d'usage de prétraiter les données pour calculer des indices comme l'index de végétation différentiel normalisé (NDVI)\cite{NDVI}:
 \begin{equation}
 NDVI=\frac{NIR-VIS}{NIR+VIS}
 \end{equation}
-Où NIR correspond à l'intensité lumineuse dans le proche infrarouge et VIS dans le rouge. Une valeur de cet indice proche de 1 indique la présence de végétation, une valeur négative indique des nages ou l'absence de végétation. Dans notre cas, les images multispectrales fournissent suffisamment d'informations par elles-mêmes pour classifier les sols avec précision sans passer par cet indice.
+Où NIR correspond à l'intensité lumineuse dans le proche infrarouge et VIS dans le rouge. Une valeur de cet indice proche de 1 indique la présence de végétation, une valeur négative indique des nages ou l'absence de végétation. 
+Dans notre cas, \textbf{les images multispectrales fournissent suffisamment d'informations par elles-mêmes pour classifier les sols avec précision}, sans passer par cet indice.
 
+\paragraph{Algorithme SVM mieux adapté}
+\paragraph{}
 L'un des objectifs de notre projet étant de déterminer des principes généraux pour la classification et l'exploitation des données Sentinel-2, nous avons cherché à comparer les résultats obtenus pour différents classificateurs. Nous avons d'abord cherché à comparer à l'œil ces méthodes en cherchant des différences sur les images obtenues, comme sur la figure \ref{fig:comparaison}.
 
 \begin{figure}[H]
@@ -379,7 +392,7 @@ L'un des objectifs de notre projet étant de déterminer des principes générau
   \caption{Comparaison des classifications obtenues avec différentes méthodes.}
   \label{fig:comparaison}
 \end{figure}
-Cependant, ces comparaisons à l'œil ne permettent pas d'identifier formellement un critère meilleur que l'autre. Nous avons donc utilisé un critère numérique : l'exactitude, qui permet de quantifier la qualité de nos classifications et ainsi de les comparer. Les résultats sont résumés dans le tableau \ref{table:comp}. On peut constater que selon ces résultats, le support vecteur machine (SVM) offre les meilleurs résultats et semble donc le classificateur le plus adapté à notre problème de classification à trois classes. Il serait nécessaire de faire des tests similaires sur d'autres zones pour confirmer ou infirmer cette observation, cependant cela sort du cadre de notre projet.
+Cependant, ces comparaisons à l'œil ne permettent pas d'identifier formellement un critère meilleur que l'autre. Nous avons donc utilisé un critère numérique : l'exactitude, qui permet de quantifier la qualité de nos classifications et ainsi de les comparer. Les résultats sont résumés dans le tableau \ref{table:comp}. On peut constater que selon ces résultats, \textbf{le support vecteur machine (SVM) offre les meilleurs résultats} et semble donc le classificateur le plus adapté à notre problème de classification à trois classes. Il serait nécessaire de faire des tests similaires sur d'autres zones pour confirmer ou infirmer cette observation, cependant cela sort du cadre de notre projet.
 
 \begin{table}[H]
 \begin{center}
@@ -395,7 +408,11 @@ exactitude & 78.4\% & 90.9\% & 	98.0\% & 99.1\% \\
 \label{table:comp}
 \end{table}
 
-Nous avons également démontré que chacune des 12 bandes spectrales est nécessaire dans la classification, puisque la perte de l'une d'entre elles entraîne une baisse significative de l'exactitude comme on l'a vu dans le paragraphe \ref{lineaire}. Nous avons étudié l'influence de ce paramètre en étudiant l'exactitude d'un classificateur avec les 12 bandes, puis en en retirant. Les résultats obtenus sont présentés en figure \ref{fig:nBandes}.
+\paragraph{Importance de toutes les bandes spectrales}
+\paragraph{} 
+Nous avons également démontré que \textbf{chacune des 12 bandes spectrales est nécessaire dans la classification}, puisque la perte de l'une d'entre elles entraîne une baisse significative de l'exactitude comme on l'a vu dans le paragraphe \ref{lineaire}. Nous avons étudié l'influence de ce paramètre en étudiant l'exactitude d'un classificateur avec les 12 bandes, puis en en retirant. Les résultats obtenus sont présentés en figure \ref{fig:nBandes}. 
+\newline
+Il est à noter que n'avons utilisé que 12 bandes spectrales (sur les 13 fournies par le satellite) car l'une des bandes, la bande 11 à 1610nm, n'était  pas exploitable. Cela peut être dû à un défaut momentanément de fonctionnement du satellite. On peut donc espérer améliorer encore la qualité de nos résultats en utilisant les 13 bandes, une fois le problème réglé.
 
 \begin{figure}[H]
   \centering
@@ -404,7 +421,11 @@ Nous avons également démontré que chacune des 12 bandes spectrales est néces
   \label{fig:nBandes}
 \end{figure}
 
+
 \subsection{Limites et améliorations}
+
+\paragraph{Ajout d'une nouvelle classe}
+\paragraph{}
 Nous avons constaté que la boue le long des côtes n'est pas toujours reconnue de la même manière par nos algorithmes: parfois champs, parfois ville, ils ne correspondent à aucune de nos trois classes. Il est en effet rare en apprentissage automatique d'utiliser seulement trois classes. Nous avons donc rajouté une classe ``boue'' et testé certaines de nos classifications, en particulier le Support Vecteur Machine. Le résultat est donné en figure \ref{fig:SVM4Cl}. La boue est bien classifiée mais l'introduction de cette 4e classe entraîne l'apparition de faux positifs, en particulier dans les champs dont la réponse spectrale est proche.
 \begin{figure}[H]
   \centering
@@ -413,10 +434,16 @@ Nous avons constaté que la boue le long des côtes n'est pas toujours reconnue 
   \label{fig:SVM4Cl}
 \end{figure}
 
+\paragraph{Pré-traitement des données}
+\paragraph{}
 Plusieurs méthodes s'offrent à nous pour améliorer ce résultat de classification: la plus simple, appelée \textit{whitening} (blanchissement, en français) consiste à centrer chaque bande spectrale sur sa moyenne et à la dilater proportionnellement à son écart-type. Cette méthode renormalise les distributions et permet une meilleure classification.
 
+\paragraph{Ajout de nouvelles informations}
+\paragraph{}
 Il est également possible d'ajouter encore plus d'informations, en utilisant les données de satellites Sentinel-1 qui sont des images radar. Une dernière méthode tout juste mise au point par notre tuteur N. Brodu consiste à améliorer la résolution des bandes spectrales de plus faible résolution en inférant leur valeur à partir des bandes à plus haute résolution. Ces méthodes ont prouvé leur efficacité sur les données MODIS et pourraient apporter un supplément d'information sur les données Sentinel-2 également.
 
+\paragraph{Dimensions spatiale et temporelle de notre travail}
+\paragraph{}
 Enfin, les données Sentinel-2 étant toutes nouvelles, peu de zones géographiques sont à notre disposition. Nous nous sommes concentrés pendant ce projet sur une zone précise dans un but de répétabilité. Nous avons essayé de classifier des zones différentes comme présenté en figure \ref{fig:zone2}, cependant ce travail n'a été qu'esquissé et sort du cadre de notre projet.
 
 \begin{figure}[H]
@@ -429,6 +456,14 @@ Enfin, les données Sentinel-2 étant toutes nouvelles, peu de zones géographiq
 Il serait également intéressant d'effectuer un suivi temporel, mais là encore la mission Sentinel-2 est trop récente et les données disponibles ne sont pas suffisantes. 
 
 
+\section{Bilan}
+
+Ce projet nous a apporté de nouvelles expériences. D'un point de vue technique, nous avons tout particulièrement acquis des connaissances en machine learning. Sur un plan professionnel, nous avons été confrontés à des problématiques propres aux travaux en groupe : notamment à l’organisation et à la communication au sein du groupe. Nous avons ainsi acquis une méthode de travail et de gestion de projet (réunion hebdomadaire, dépôt des documents sur un répertoire commun, parallélisation des tâches ...). Par ailleurs, ce projet nous a permis de réfléchir aux notions de propriété intellectuelle et de valorisation d’un projet. Enfin, grâce à notre encadrant, Nicolas Brodu, nous avons pu approcher le monde de la recherche, d’une part parce que les réunions hebdomadaires avaient lieu à l’Inria, d’autre part au travers d'échanges plus informels avec le chercheur.
+
+\paragraph{}
+Nous tenons ainsi à remercier Nicolas Brodu pour son enthousiasme, son envie de transmettre et son soutien tout au long du projet.
+
+\newpage
 \bibliography{Biblio}
 \bibliographystyle{plain}
 \end{document}
